@@ -473,6 +473,20 @@ var Capsule = (function() {
 			document.addEventListener("mousedown", keyDownHandler);
 			document.addEventListener("mouseup", keyUpHandler);
 			document.addEventListener("contextmenu", contextmenuHandler);
+
+			document.getElementById(Capsule.Config.ID_FULLSCREEN).addEventListener("click", function() {
+				var canvas = document.getElementById(Capsule.Config.ID_CANVAS);
+
+				if (canvas.requestFullscreen) {
+					canvas.requestFullscreen();
+				} else if (canvas.msRequestFullscreen) {
+					canvas.msRequestFullscreen();
+				} else if (canvas.mozRequestFullScreen) {
+					canvas.mozRequestFullScreen();
+				} else if (canvas.webkitRequestFullscreen) {
+					canvas.webkitRequestFullscreen();
+				}
+			});
 		});
 
 		return {
