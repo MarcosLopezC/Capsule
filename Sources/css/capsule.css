@@ -19,5 +19,6 @@ body {
 #fullscreen {
 	margin: auto;
 	margin-bottom: 20px;
+	padding: 3px;
 	display: block;
 }
