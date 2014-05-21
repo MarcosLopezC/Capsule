@@ -497,7 +497,7 @@ var Capsule = (function() {
 
 	Capsule.Stack = (function() {
 		var Stack = function() {
-			Object.defineProperties(Stack, {
+			Object.defineProperties(this, {
 				_items: {
 					value: [],
 					writable: true,
