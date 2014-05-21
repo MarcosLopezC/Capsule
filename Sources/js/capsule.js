@@ -506,5 +506,71 @@ var Capsule = (function() {
 		};
 	}());
 
+	Capsule.Stack = (function() {
+		var Stack = function() {
+			Object.defineProperties(Stack, {
+				_items: {
+					value: [],
+					writable: true,
+					enumerable: false
+				}
+			});
+		};
+
+		var defineProperty = function(key, accessor) {
+			Object.defineProperty(Stack.prototype, key, {
+				enumerable: true,
+				get: accessor.get,
+				set: accessor.set
+			});
+		};
+
+		defineProperty("count", {
+			get: function() {
+				return this._items.length;
+			}
+		});
+
+		defineProperty("top", {
+			get: function() {
+				var items = this._items;
+
+				return items[items.length - 1];
+			}
+		});
+
+		Stack.prototype.pop = function() {
+			return this._items.pop();
+		};
+
+		Stack.prototype.push = function(item) {
+			this._items.push(item);
+
+			return this;
+		};
+
+		Stack.prototype.clear = function() {
+			this._items = [];
+
+			return this;
+		};
+
+		Stack.prototype.clone = function() {
+			var stack = new Stack();
+
+			stack._items = this._items.slice(0);
+
+			return stack;
+		};
+
+		Stack.prototype.forEach = function(lambda) {
+			this._items.forEach(lambda);
+
+			return this;
+		};
+
+		return Stack;
+	}());
+
 	return Capsule;
 }());
