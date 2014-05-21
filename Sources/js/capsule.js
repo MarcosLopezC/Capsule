@@ -185,7 +185,6 @@ var Capsule = (function() {
 		CapsuleMath.getRandomNumber = function(min, max) {
 			max = max || 1;
 			min = min || 0;
-
 			return (Math.random() * (max - min)) + min;
 		};
 
@@ -234,7 +233,6 @@ var Capsule = (function() {
 		Vector.getDistanceBetween2 = function(vector1, vector2) {
 			var x = vector1.x - vector2.x;
 			var y = vector1.y - vector2.y;
-
 			return (x * x) + (y * y);
 		};
 
@@ -270,28 +268,23 @@ var Capsule = (function() {
 			if (angle === null) {
 				angle = this.angle;
 			}
-
 			if (length === null) {
 				length = this.length;
 			}
-
 			this.x = length * Math.cos(angle);
 			this.y = length * Math.sin(angle);
-
 			return this;
 		};
 
 		Vector.prototype.addVector = function(vector) {
 			this.x += vector.x;
 			this.y += vector.y;
-
 			return this;
 		};
 
 		Vector.prototype.scale = function(factor) {
 			this.x *= factor;
 			this.y *= factor;
-
 			return this;
 		};
 
@@ -305,16 +298,13 @@ var Capsule = (function() {
 
 		Vector.prototype.getAngleBetween = function(vector) {
 			var lengthProduct = this.getLength() * vector.getLength();
-
 			return Math.acos(this.dot(vector) / lengthProduct);
 		};
 
 		Vector.prototype.normalize = function() {
 			var length = this.getLength();
-
 			this.x = this.x / length;
 			this.y = this.y / length;
-
 			return this;
 		};
 
@@ -329,7 +319,6 @@ var Capsule = (function() {
 		Vector.prototype.reverse = function() {
 			this.x *= -1;
 			this.y *= -1;
-
 			return this;
 		};
 
@@ -534,7 +523,6 @@ var Capsule = (function() {
 		defineProperty("top", {
 			get: function() {
 				var items = this._items;
-
 				return items[items.length - 1];
 			}
 		});
@@ -545,27 +533,22 @@ var Capsule = (function() {
 
 		Stack.prototype.push = function(item) {
 			this._items.push(item);
-
 			return this;
 		};
 
 		Stack.prototype.clear = function() {
 			this._items = [];
-
 			return this;
 		};
 
 		Stack.prototype.clone = function() {
 			var stack = new Stack();
-
 			stack._items = this._items.slice(0);
-
 			return stack;
 		};
 
 		Stack.prototype.forEach = function(lambda) {
 			this._items.forEach(lambda);
-
 			return this;
 		};
 
