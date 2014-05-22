@@ -728,10 +728,10 @@ var Capsule = (function() {
 				throw new Error("Game is already running.");
 			}
 			if (typeof updateFunc !== "function") {
-				throw new Error("onUpdate is null or undefined.");
+				throw new Error("onUpdate has to be of type 'function'. It cannot be null or undefined.");
 			}
 			if (typeof drawFunc !== "function") {
-				throw new Error("onDraw is null or undefined.");
+				throw new Error("onDraw has to be of type 'function'. It cannot be null of undefined.");
 			}
 
 			var drawLoop = function() {
