@@ -478,14 +478,13 @@ var Capsule = (function() {
 			isKeyPressed: function(keyCode) {
 				return keyState[keyCode];
 			},
-			getMousePosition: function(relativeElement) {
+			getMousePosition: function() {
 				var position = mousePosition.clone();
-
-				if (relativeElement) {
-					position.x -= relativeElement.offsetLeft;
-					position.y -= relativeElement.offsetTop;
+				if (Capsule.Game.context) {
+					var element = Capsule.Game.context.canvas;
+					position.x -= element.offsetLeft;
+					position.y -= element.offsetTop;
 				}
-
 				return position;
 			}
 		};
