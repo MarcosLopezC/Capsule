@@ -465,16 +465,12 @@ var Capsule = (function() {
 
 			document.getElementById(Capsule.Config.ID_FULLSCREEN).addEventListener("click", function() {
 				var canvas = document.getElementById(Capsule.Config.ID_CANVAS);
-
-				if (canvas.requestFullscreen) {
-					canvas.requestFullscreen();
-				} else if (canvas.msRequestFullscreen) {
-					canvas.msRequestFullscreen();
-				} else if (canvas.mozRequestFullScreen) {
-					canvas.mozRequestFullScreen();
-				} else if (canvas.webkitRequestFullscreen) {
-					canvas.webkitRequestFullscreen();
-				}
+				(
+					canvas.requestFullscreen       ||
+					canvas.msRequestFullscreen     ||
+					canvas.mozRequestFullScreen    ||
+					canvas.webkitRequestFullscreen
+				).call(canvas);
 			});
 		});
 
@@ -712,10 +708,10 @@ var Capsule = (function() {
 	Capsule.Game = (function() {
 		var Game = {};
 
-		var drawFunc         = null;
-		var updateFunc       = null;
-		var isRunning        = false;
-		var context          = null;
+		var drawFunc   = null;
+		var updateFunc = null;
+		var isRunning  = false;
+		var context    = null;
 
 		var requestAnimationFrame = (function() {
 			return (
