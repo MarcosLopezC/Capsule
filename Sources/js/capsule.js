@@ -709,5 +709,116 @@ var Capsule = (function() {
 		return Color;
 	}());
 
+	Capsule.Game = (function() {
+		var Game = {};
+
+		var drawFunc         = null;
+		var updateFunc       = null;
+		var isRunning        = false;
+		var context          = null;
+
+		var requestAnimationFrame = (function() {
+			return (
+				window.requestAnimationFrame       ||
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame    ||
+				function(callback) {
+					window.setTimeout(callback, 1000 / 60);
+				}
+			);
+		}());
+
+		Game.run = function() {
+			if (isRunning) {
+				throw new Error("Game is already running.");
+			}
+			if (typeof updateFunc !== "function") {
+				throw new Error("onUpdate is null or undefined.");
+			}
+			if (typeof drawFunc !== "function") {
+				throw new Error("onDraw is null or undefined.");
+			}
+
+			var drawLoop = function() {
+				if (isRunning) {
+					drawFunc();
+					requestAnimationFrame(drawLoop);
+				}
+			};
+
+			var updateLoop = function() {
+				if (isRunning) {
+					updateFunc();
+					window.setTimeout(updateLoop, 0);
+				}
+			};
+
+			context = document.getElementById(Capsule.Config.ID_CANVAS).getContext("2d");
+			isRunning = true;
+
+			updateLoop();
+			drawLoop();
+		};
+
+		Game.stop = function() {
+			if (!isRunning) {
+				throw new Error("Game cannot be stopped because is not running.");
+			}
+
+			context = null;
+			isRunning = false;
+		};
+
+		var defineProperty = function(key, accessor) {
+			Object.defineProperty(Game, key, {
+				enumerable: true,
+				get: accessor.get,
+				set: accessor.set
+			});
+		};
+
+		defineProperty("onDraw", {
+			get: function() {
+				return drawFunc;
+			},
+			set: function(value) {
+				drawFunc = value;
+			}
+		});
+
+		defineProperty("onUpdate", {
+			get: function() {
+				return updateFunc;
+			},
+			set: function(value) {
+				updateFunc = value;
+			}
+		});
+
+		defineProperty("isRunning", {
+			get: function() {
+				return isRunning;
+			}
+		});
+
+		defineProperty("context", {
+			get: function() {
+				return context;
+			}
+		});
+
+		var lockFunction = function(key) {
+			Object.defineProperty(Game, key, {
+				writable: false,
+				configurable: false
+			});
+		};
+
+		lockFunction("run");
+		lockFunction("stop");
+
+		return Game;
+	}());
+
 	return Capsule;
 }());
