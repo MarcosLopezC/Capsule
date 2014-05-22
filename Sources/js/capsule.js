@@ -671,5 +671,43 @@ var Capsule = (function() {
 		return List;
 	}());
 
+	Capsule.Color = (function() {
+		var Color = function(red, green, blue, alpha) {
+			Object.defineProperties(this, {
+				red: {
+					value: red || 0,
+					writable: true,
+					enumerable: true
+				},
+				green: {
+					value: green || 0,
+					writable: true,
+					enumerable: true
+				},
+				blue: {
+					value: blue || 0,
+					writable: true,
+					enumerable: true
+				},
+				alpha: {
+					value: alpha || 255,
+					writable: true,
+					enumerable: true
+				}
+			});
+		};
+
+		Color.prototype.toString = function() {
+			var range = Capsule.Math.getRange;
+			var red   = range(this.red,   0, 255).toString(16);
+			var green = range(this.green, 0, 255).toString(16);
+			var blue  = range(this.blue,  0, 255).toString(16);
+			var alpha = range(this.alpha, 0, 255).toString(16);
+			return String.concat("rgba(", red, ", ", green, ", ", blue, ", ", alpha, ")");
+		};
+
+		return Color;
+	}());
+
 	return Capsule;
 }());
