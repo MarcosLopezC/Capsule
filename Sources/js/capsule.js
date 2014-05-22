@@ -777,6 +777,9 @@ var Capsule = (function() {
 				return drawFunc;
 			},
 			set: function(value) {
+				if (isRunning) {
+					throw new Error("onDraw cannot be changed while the game is running.");
+				}
 				drawFunc = value;
 			}
 		});
@@ -786,6 +789,9 @@ var Capsule = (function() {
 				return updateFunc;
 			},
 			set: function(value) {
+				if (isRunning) {
+					throw new Error("onUpdate cannot be changed while the game is running.")
+				}
 				updateFunc = value;
 			}
 		});
