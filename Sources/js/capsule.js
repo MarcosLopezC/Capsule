@@ -10,7 +10,7 @@ var Capsule = (function() {
 
 		var defineConst = function(key, value) {
 			Object.defineProperty(Config, key, {
-				value: value,
+				value:      value,
 				enumerable: true
 			});
 		};
@@ -26,7 +26,7 @@ var Capsule = (function() {
 
 		var defineConst = function(key, value) {
 			Object.defineProperty(ButtonCode, key, {
-				value: value,
+				value:      value,
 				enumerable: true
 			});
 		};
@@ -153,7 +153,7 @@ var Capsule = (function() {
 
 		var defineConst = function(key, value) {
 			Object.defineProperty(CapsuleMath, key, {
-				value: value,
+				value:      value,
 				enumerable: true
 			});
 		};
@@ -208,25 +208,17 @@ var Capsule = (function() {
 		var Vector = function(x, y) {
 			Object.defineProperties(this, {
 				x: {
-					value: x || 0,
+					value:        x || 0,
 					configurable: false,
-					writable: true,
-					enumerable: true
+					writable:     true,
+					enumerable:   true
 				},
 				y: {
-					value: y || 0,
+					value:        y || 0,
 					configurable: false,
-					writable: true,
-					enumerable: true
+					writable:     true,
+					enumerable:   true
 				}
-			});
-		};
-
-		var defineProperty = function(key, accessor) {
-			Object.defineProperty(Vector.prototype, key, {
-				enumerable: true,
-				get: accessor.get,
-				set: accessor.set
 			});
 		};
 
@@ -238,6 +230,14 @@ var Capsule = (function() {
 
 		Vector.getDistanceBetween = function(vector1, vector2) {
 			return Math.sqrt(Vector.getDistanceBetween(vector1, vector2));
+		};
+
+		var defineProperty = function(key, accessor) {
+			Object.defineProperty(Vector.prototype, key, {
+				enumerable: true,
+				get:        accessor.get,
+				set:        accessor.set
+			});
 		};
 
 		defineProperty("length2", {
@@ -329,16 +329,16 @@ var Capsule = (function() {
 		var Size = function(width, height) {
 			Object.defineProperties(this, {
 				width: {
-					value: width || 0,
+					value:        width || 0,
 					configurable: false,
-					writable: true,
-					enumerable: true
+					writable:     true,
+					enumerable:   true
 				},
 				height: {
-					value: height || 0,
+					value:        height || 0,
 					configurable: false,
-					writable: true,
-					enumerable: true
+					writable:     true,
+					enumerable:   true
 				}
 			});
 		};
@@ -364,28 +364,28 @@ var Capsule = (function() {
 		var Timer = function(max) {
 			Object.defineProperties(this, {
 				_total: {
-					value: 0,
+					value:        0,
 					configurable: false,
-					writable: true,
-					enumerable: false
+					writable:     true,
+					enumerable:   false
 				},
 				_elapsed: {
-					value: 0,
+					value:        0,
 					configurable: false,
-					writable: true,
-					enumerable: false
+					writable:     true,
+					enumerable:   false
 				},
 				_lastUpdate: {
-					value: 0,
+					value:        0,
 					configurable: false,
-					writable: true,
-					enumerable: false
+					writable:     true,
+					enumerable:   false
 				},
 				MAX_LATENCY: {
-					value: max || 100,
+					value:        max || 100,
 					configurable: false,
-					writable: false,
-					enumerable: true
+					writable:     false,
+					enumerable:   true
 				}
 			});
 		};
@@ -408,9 +408,9 @@ var Capsule = (function() {
 
 		var defineProperty = function(key, accessor) {
 			Object.defineProperty(Timer.prototype, key, {
-				get: accessor.get,
-				set: accessor.set,
-				enumerable: true
+				enumerable: true,
+				get:        accessor.get,
+				set:        accessor.set
 			});
 		};
 
@@ -494,9 +494,10 @@ var Capsule = (function() {
 		var Stack = function() {
 			Object.defineProperties(this, {
 				_items: {
-					value: [],
-					writable: true,
-					enumerable: false
+					value:        [],
+					writable:     true,
+					configurable: false,
+					enumerable:   false
 				}
 			});
 		};
@@ -504,8 +505,8 @@ var Capsule = (function() {
 		var defineProperty = function(key, accessor) {
 			Object.defineProperty(Stack.prototype, key, {
 				enumerable: true,
-				get: accessor.get,
-				set: accessor.set
+				get:        accessor.get,
+				set:        accessor.set
 			});
 		};
 
@@ -554,8 +555,10 @@ var Capsule = (function() {
 		var List = function() {
 			Object.defineProperties(this, {
 				_items: {
-					value: [],
-					writable: true
+					value:        [],
+					writable:     true,
+					configurable: true,
+					enumerable:   true
 				}
 			});
 		};
@@ -563,8 +566,8 @@ var Capsule = (function() {
 		var defineProperty = function(key, accessor) {
 			Object.defineProperty(List.prototype, key, {
 				enumerable: true,
-				get: accessor.get,
-				set: accessor.set
+				get:        accessor.get,
+				set:        accessor.set
 			});
 		};
 
@@ -670,24 +673,28 @@ var Capsule = (function() {
 		var Color = function(red, green, blue, alpha) {
 			Object.defineProperties(this, {
 				red: {
-					value: red || 0,
-					writable: true,
-					enumerable: true
+					value:        red || 0,
+					writable:     true,
+					configurable: false,
+					enumerable:   true
 				},
 				green: {
-					value: green || 0,
-					writable: true,
-					enumerable: true
+					value:        green || 0,
+					writable:     true,
+					configurable: false,
+					enumerable:   true
 				},
 				blue: {
-					value: blue || 0,
-					writable: true,
-					enumerable: true
+					value:        blue || 0,
+					writable:     true,
+					configurable: false,
+					enumerable:   true
 				},
 				alpha: {
-					value: alpha || 255,
-					writable: true,
-					enumerable: true
+					value:        alpha || 255,
+					writable:     true,
+					configurable: false,
+					enumerable:   true
 				}
 			});
 		};
@@ -767,8 +774,8 @@ var Capsule = (function() {
 		var defineProperty = function(key, accessor) {
 			Object.defineProperty(Game, key, {
 				enumerable: true,
-				get: accessor.get,
-				set: accessor.set
+				get:        accessor.get,
+				set:        accessor.set
 			});
 		};
 
@@ -810,7 +817,7 @@ var Capsule = (function() {
 
 		var lockFunction = function(key) {
 			Object.defineProperty(Game, key, {
-				writable: false,
+				writable:     false,
 				configurable: false
 			});
 		};
