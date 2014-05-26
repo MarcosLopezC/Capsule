@@ -5,145 +5,186 @@ var Capsule = (function() {
 
 	var Capsule = {};
 
-	Capsule.Config = (function() {
-		var Config = {};
-
-		var defineConst = function(key, value) {
-			Object.defineProperty(Config, key, {
-				value:      value,
-				enumerable: true
-			});
+	var applyDataDescriptor = (function() {
+		var isConstant = function(name) {
+			if (name.toLocaleUpperCase() === name) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		};
 
-		defineConst("ID_CANVAS",     "graphics");
-		defineConst("ID_FULLSCREEN", "fullscreen");
+		var isPrivate = function(name) {
+			if (name.charAt(0) === "_") {
+				return true;
+			}
+			else {
+				return false;
+			}
+		};
+
+		return function(object) {
+			var descriptor = {
+				configurable: false
+			};
+
+			Object.getOwnPropertyNames(object).forEach(function(key) {
+				if (isConstant(key)) {
+					descriptor.writable = false;
+				}
+
+				if (isPrivate(key)) {
+					descriptor.enumerable = false;
+				}
+
+				Object.defineProperty(object, key, descriptor);
+			});
+		};
+	}());
+
+	var defineAccessorProperties = function(object, accessors) {
+		Object.getOwnPropertyNames(accessors).forEach(function(key) {
+			if (typeof accessors[key].get !== "function") {
+				throw new Error("Accessor descriptors must have a 'get' property.");
+			}
+			Object.defineProperty(object, key, {
+				enumerable: true,
+				get:        accessors[key].get,
+				set:        accessors[key].set
+			});
+		});
+	};
+
+	Capsule.Config = (function() {
+		var Config = {
+			ID_CANVAS:     "graphics",
+			ID_FULLSCREEN: "fullscreen"
+		};
+
+		applyDataDescriptor(Config);
 
 		return Config;
 	}());
 
 	Capsule.ButtonCode = (function() {
-		var ButtonCode = {};
+		var ButtonCode = {
+			CLICK_LEFT:      1,
+			CLICK_MIDDLE:    2,
+			CLICK_RIGHT:     3,
 
-		var defineConst = function(key, value) {
-			Object.defineProperty(ButtonCode, key, {
-				value:      value,
-				enumerable: true
-			});
+			//SCROLL_UP:       5,
+			//SCROLL_DOWN:     6,
+
+			BACKSPACE:       8,
+			TAB:             9,
+			ENTER:           13,
+			SHIFT:           16,
+			CTRL:            17,
+			ALT:             18,
+			PAUSE_BREAK:     19,
+			CAPS_LOCK:       20,
+			ESCAPE:          27,
+
+			INSERT:          45,
+			DELETE:          46,
+			PAGE_UP:         33,
+			PAGE_DOWN:       34,
+			END:             35,
+			HOME:            36,
+
+			ARROW_LEFT:      37,
+			ARROW_UP:        38,
+			ARROW_RIGHT:     39,
+			ARROW_DOWN:      40,
+
+			NUMBER_0:        48,
+			NUMBER_1:        49,
+			NUMBER_2:        50,
+			NUMBER_3:        51,
+			NUMBER_4:        52,
+			NUMBER_5:        53,
+			NUMBER_6:        54,
+			NUMBER_7:        55,
+			NUMBER_8:        56,
+			NUMBER_9:        57,
+
+			A:               65,
+			B:               66,
+			C:               67,
+			D:               68,
+			E:               69,
+			F:               70,
+			G:               71,
+			H:               72,
+			I:               73,
+			J:               74,
+			K:               75,
+			L:               76,
+			M:               77,
+			N:               78,
+			O:               79,
+			P:               80,
+			Q:               81,
+			R:               82,
+			S:               83,
+			T:               84,
+			U:               85,
+			V:               86,
+			W:               87,
+			X:               88,
+			Y:               89,
+			Z:               90,
+
+			WINDOW_LEFT:     91,
+			WINDOW_RIGHT:    92,
+			MENU:            93,
+
+			NUMPAD_0:        96,
+			NUMPAD_1:        97,
+			NUMPAD_2:        98,
+			NUMPAD_3:        99,
+			NUMPAD_4:        100,
+			NUMPAD_5:        101,
+			NUMPAD_6:        103,
+			NUMPAD_7:        104,
+			NUMPAD_8:        105,
+			NUMPAD_9:        106,
+			NUMPAD_MULTIPLY: 106,
+			NUMPAD_ADD:      107,
+			NUMPAD_SUBTRACT: 109,
+			NUMPAD_POINT:    110,
+			NUMPAD_DIVIDE:   111,
+
+			F1:              112,
+			F2:              113,
+			F3:              114,
+			F4:              115,
+			F5:              116,
+			F6:              117,
+			F7:              118,
+			F8:              119,
+			F9:              120,
+			F10:             121,
+			F11:             122,
+			F12:             123,
+
+			NUM_LOCK:        144,
+			SCROLL_LOCK:     145,
+			SEMI_COLON:      186,
+			EQUALS:          187,
+			COMMA:           188,
+			DASH:            189,
+			PERIOD:          190,
+			SLASH_FORWARD:   191,
+			TILDE:           192,
+			BRACKET_OPEN:    219,
+			SLASH_BACK:      220,
+			BRACKET_CLOSE:   221,
+			SINGLE_QUOTE:    222
 		};
 
-		defineConst("LEFT_CLICK",      1);
-		defineConst("MIDDLE_CLICK",    2);
-		defineConst("RIGHT_CLICK",     3);
-
-		//defineConst("SCROLL_UP",       5);
-		//defineConst("SCROLL_DOWN",     6);
-
-		defineConst("BACKSPACE",       8);
-		defineConst("TAB",             9);
-		defineConst("ENTER",           13);
-		defineConst("SHIFT",           16);
-		defineConst("CTRL",            17);
-		defineConst("ALT",             18);
-		defineConst("PAUSE_BREAK",     19);
-		defineConst("CAPS_LOCK",       20);
-		defineConst("ESCAPE",          27);
-
-		defineConst("INSERT",          45);
-		defineConst("DELETE",          46);
-		defineConst("PAGE_UP",         33);
-		defineConst("PAGE_DOWN",       34);
-		defineConst("END",             35);
-		defineConst("HOME",            36);
-
-		defineConst("ARROW_LEFT",      37);
-		defineConst("ARROW_UP",        38);
-		defineConst("ARROW_RIGHT",     39);
-		defineConst("ARROW_DOWN",      40);
-
-		defineConst("NUMBER_0",        48);
-		defineConst("NUMBER_1",        49);
-		defineConst("NUMBER_2",        50);
-		defineConst("NUMBER_3",        51);
-		defineConst("NUMBER_4",        52);
-		defineConst("NUMBER_5",        53);
-		defineConst("NUMBER_6",        54);
-		defineConst("NUMBER_7",        55);
-		defineConst("NUMBER_8",        56);
-		defineConst("NUMBER_9",        57);
-
-		defineConst("A",               65);
-		defineConst("B",               66);
-		defineConst("C",               67);
-		defineConst("D",               68);
-		defineConst("E",               69);
-		defineConst("F",               70);
-		defineConst("G",               71);
-		defineConst("H",               72);
-		defineConst("I",               73);
-		defineConst("J",               74);
-		defineConst("K",               75);
-		defineConst("L",               76);
-		defineConst("M",               77);
-		defineConst("N",               78);
-		defineConst("O",               79);
-		defineConst("P",               80);
-		defineConst("Q",               81);
-		defineConst("R",               82);
-		defineConst("S",               83);
-		defineConst("T",               84);
-		defineConst("U",               85);
-		defineConst("V",               86);
-		defineConst("W",               87);
-		defineConst("X",               88);
-		defineConst("Y",               89);
-		defineConst("Z",               90);
-
-		defineConst("LEFT_WINDOW",     91);
-		defineConst("RIGHT_WINDOW",    92);
-		defineConst("MENU",            93);
-
-		defineConst("NUMPAD_0",        96);
-		defineConst("NUMPAD_1",        97);
-		defineConst("NUMPAD_2",        98);
-		defineConst("NUMPAD_3",        99);
-		defineConst("NUMPAD_4",        100);
-		defineConst("NUMPAD_5",        101);
-		defineConst("NUMPAD_6",        103);
-		defineConst("NUMPAD_7",        104);
-		defineConst("NUMPAD_8",        105);
-		defineConst("NUMPAD_9",        106);
-		defineConst("NUMPAD_MULTIPLY", 106);
-		defineConst("NUMPAD_ADD",      107);
-		defineConst("NUMPAD_SUBTRACT", 109);
-		defineConst("NUMPAD_POINT",    110);
-		defineConst("NUMPAD_DIVIDE",   111);
-
-		defineConst("F1",              112);
-		defineConst("F2",              113);
-		defineConst("F3",              114);
-		defineConst("F4",              115);
-		defineConst("F5",              116);
-		defineConst("F6",              117);
-		defineConst("F7",              118);
-		defineConst("F8",              119);
-		defineConst("F9",              120);
-		defineConst("F10",             121);
-		defineConst("F11",             122);
-		defineConst("F12",             123);
-
-		defineConst("NUM_LOCK",        144);
-		defineConst("SCROLL_LOCK",     145);
-		defineConst("SEMI_COLON",      186);
-		defineConst("EQUALS",          187);
-		defineConst("COMMA",           188);
-		defineConst("DASH",            189);
-		defineConst("PERIOD",          190);
-		defineConst("FORWARD_SLASH",   191);
-		defineConst("TILDE",           192);
-		defineConst("OPEN_BRACKET",    219);
-		defineConst("BACK_SLASH",      220);
-		defineConst("CLOSE_BRACKET",   221);
-		defineConst("SINGLE_QUOTE",    222);
+		applyDataDescriptor(ButtonCode);
 
 		return ButtonCode;
 	}());
@@ -151,20 +192,15 @@ var Capsule = (function() {
 	Capsule.Math = (function() {
 		var CapsuleMath = Object.create(Math);
 
-		var defineConst = function(key, value) {
-			Object.defineProperty(CapsuleMath, key, {
-				value:      value,
-				enumerable: true
-			});
-		};
+		CapsuleMath.TAU     = Math.PI * 2;
+		CapsuleMath.HALF_PI = Math.PI / 2;
 
-		defineConst("TAU",     Math.PI * 2);
-		defineConst("HALF_PI", Math.PI / 2);
+		CapsuleMath.ANGLE_RIGHT = CapsuleMath.TAU * 0.00;
+		CapsuleMath.ANGLE_DOWN  = CapsuleMath.TAU * 0.25;
+		CapsuleMath.ANGLE_LEFT  = CapsuleMath.TAU * 0.50;
+		CapsuleMath.ANGLE_UP    = CapsuleMath.TAU * 0.75;
 
-		defineConst("ANGLE_RIGHT", CapsuleMath.TAU * 0.00);
-		defineConst("ANGLE_DOWN",  CapsuleMath.TAU * 0.25);
-		defineConst("ANGLE_LEFT",  CapsuleMath.TAU * 0.50);
-		defineConst("ANGLE_UP",    CapsuleMath.TAU * 0.75);
+		applyDataDescriptor(CapsuleMath);
 
 		// Gets the modulus.
 		CapsuleMath.getModulus = function(dividend, divisor) {
@@ -206,20 +242,8 @@ var Capsule = (function() {
 
 	Capsule.Vector = (function() {
 		var Vector = function(x, y) {
-			Object.defineProperties(this, {
-				x: {
-					value:        x || 0,
-					configurable: false,
-					writable:     true,
-					enumerable:   true
-				},
-				y: {
-					value:        y || 0,
-					configurable: false,
-					writable:     true,
-					enumerable:   true
-				}
-			});
+			this.x = x || 0;
+			this.y = y || 0;
 		};
 
 		Vector.getDistanceBetween2 = function(vector1, vector2) {
@@ -232,35 +256,31 @@ var Capsule = (function() {
 			return Math.sqrt(Vector.getDistanceBetween(vector1, vector2));
 		};
 
-		var defineProperty = function(key, accessor) {
-			Object.defineProperty(Vector.prototype, key, {
-				enumerable: true,
-				get:        accessor.get,
-				set:        accessor.set
-			});
-		};
+		Vector.prototype.length2 = null;
+		Vector.prototype.length  = null;
+		Vector.prototype.angle   = null;
 
-		defineProperty("length2", {
-			get: function() {
-				return (this.x * this.x) + (this.y * this.y);
-			}
-		});
-
-		defineProperty("length", {
-			get: function() {
-				return Math.sqrt(this.length2);
+		defineAccessorProperties(Vector.prototype, {
+			length2: {
+				get: function() {
+					return (this.x * this.x) + (this.y * this.y);
+				}
 			},
-			set: function(value) {
-				this.setPolar(null, value);
-			}
-		});
-
-		defineProperty("angle", {
-			get: function() {
-				return Math.atan2(this.y, this.x);
+			length: {
+				get: function() {
+					return Math.sqrt(this.length2);
+				},
+				set: function(value) {
+					this.setPolar(null, value);
+				}
 			},
-			set: function(value) {
-				return this.setPolar(value, null);
+			angle: {
+				get: function() {
+					return Math.atan2(this.y, this.x);
+				},
+				set: function(value) {
+					return this.setPolar(value, null);
+				}
 			}
 		});
 
@@ -327,20 +347,8 @@ var Capsule = (function() {
 
 	Capsule.Size = (function() {
 		var Size = function(width, height) {
-			Object.defineProperties(this, {
-				width: {
-					value:        width || 0,
-					configurable: false,
-					writable:     true,
-					enumerable:   true
-				},
-				height: {
-					value:        height || 0,
-					configurable: false,
-					writable:     true,
-					enumerable:   true
-				}
-			});
+			this.width  = width  || 0;
+			this.height = height || 0;
 		};
 
 		Size.prototype.isEmpty = function() {
@@ -362,32 +370,12 @@ var Capsule = (function() {
 
 	Capsule.Timer = (function() {
 		var Timer = function(max) {
-			Object.defineProperties(this, {
-				_total: {
-					value:        0,
-					configurable: false,
-					writable:     true,
-					enumerable:   false
-				},
-				_elapsed: {
-					value:        0,
-					configurable: false,
-					writable:     true,
-					enumerable:   false
-				},
-				_lastUpdate: {
-					value:        0,
-					configurable: false,
-					writable:     true,
-					enumerable:   false
-				},
-				MAX_LATENCY: {
-					value:        max || 100,
-					configurable: false,
-					writable:     false,
-					enumerable:   true
-				}
-			});
+			this._total      = 0;
+			this._elapsed    = 0;
+			this._lastUpdate = 0;
+			this.MAX_LATENCY = max || 100;
+
+			applyDataDescriptor(this);
 		};
 
 		Timer.prototype.start = function() {
@@ -406,23 +394,19 @@ var Capsule = (function() {
 			return this;
 		};
 
-		var defineProperty = function(key, accessor) {
-			Object.defineProperty(Timer.prototype, key, {
-				enumerable: true,
-				get:        accessor.get,
-				set:        accessor.set
-			});
-		};
+		Timer.prototype.elapsed = null;
+		Timer.prototype.total   = null;
 
-		defineProperty("elapsed", {
-			get: function() {
-				return this._elapsed;
-			}
-		});
-
-		defineProperty("total", {
-			get: function() {
-				return this._total;
+		defineAccessorProperties(Timer.prototype, {
+			elapsed: {
+				get: function() {
+					return this._elapsed;
+				}
+			},
+			total: {
+				get: function() {
+					return this._total;
+				}
 			}
 		});
 
@@ -456,11 +440,11 @@ var Capsule = (function() {
 		}
 
 		document.addEventListener("DOMContentLoaded", function() {
-			document.addEventListener("keydown", keyDownHandler);
-			document.addEventListener("keyup", keyUpHandler);
-			document.addEventListener("mousemove", mousemoveHandler);
-			document.addEventListener("mousedown", keyDownHandler);
-			document.addEventListener("mouseup", keyUpHandler);
+			document.addEventListener("keydown",     keyDownHandler);
+			document.addEventListener("keyup",       keyUpHandler);
+			document.addEventListener("mousemove",   mousemoveHandler);
+			document.addEventListener("mousedown",   keyDownHandler);
+			document.addEventListener("mouseup",     keyUpHandler);
 			document.addEventListener("contextmenu", contextmenuHandler);
 
 			document.getElementById(Capsule.Config.ID_FULLSCREEN).addEventListener("click", function() {
@@ -475,8 +459,8 @@ var Capsule = (function() {
 		});
 
 		return {
-			isKeyPressed: function(keyCode) {
-				return keyState[keyCode];
+			isButtonPressed: function(buttonCode) {
+				return keyState[buttonCode];
 			},
 			getMousePosition: function() {
 				var position = mousePosition.clone();
@@ -492,34 +476,24 @@ var Capsule = (function() {
 
 	Capsule.Stack = (function() {
 		var Stack = function() {
-			Object.defineProperties(this, {
-				_items: {
-					value:        [],
-					writable:     true,
-					configurable: false,
-					enumerable:   false
+			this._items = [];
+			applyDataDescriptor(Stack);
+		};
+
+		Stack.prototype.count = null;
+		Stack.prototype.top   = null;
+
+		defineAccessorProperties(Stack.prototype, {
+			count: {
+				get: function() {
+					return this._items.length;
 				}
-			});
-		};
-
-		var defineProperty = function(key, accessor) {
-			Object.defineProperty(Stack.prototype, key, {
-				enumerable: true,
-				get:        accessor.get,
-				set:        accessor.set
-			});
-		};
-
-		defineProperty("count", {
-			get: function() {
-				return this._items.length;
-			}
-		});
-
-		defineProperty("top", {
-			get: function() {
-				var items = this._items;
-				return items[items.length - 1];
+			},
+			top: {
+				get: function() {
+					var items = this._items;
+					return items[items.length - 1];
+				}
 			}
 		});
 
@@ -553,27 +527,17 @@ var Capsule = (function() {
 
 	Capsule.List = (function() {
 		var List = function() {
-			Object.defineProperties(this, {
-				_items: {
-					value:        [],
-					writable:     true,
-					configurable: true,
-					enumerable:   true
+			this._items = [];
+			applyDataDescriptor(this);
+		};
+
+		List.prototype.count = null;
+
+		defineAccessorProperties(List.prototype, {
+			count: {
+				get: function() {
+					return this._items.length;
 				}
-			});
-		};
-
-		var defineProperty = function(key, accessor) {
-			Object.defineProperty(List.prototype, key, {
-				enumerable: true,
-				get:        accessor.get,
-				set:        accessor.set
-			});
-		};
-
-		defineProperty("count", {
-			get: function() {
-				return this._items.length;
 			}
 		});
 
@@ -671,32 +635,10 @@ var Capsule = (function() {
 
 	Capsule.Color = (function() {
 		var Color = function(red, green, blue, alpha) {
-			Object.defineProperties(this, {
-				red: {
-					value:        red || 0,
-					writable:     true,
-					configurable: false,
-					enumerable:   true
-				},
-				green: {
-					value:        green || 0,
-					writable:     true,
-					configurable: false,
-					enumerable:   true
-				},
-				blue: {
-					value:        blue || 0,
-					writable:     true,
-					configurable: false,
-					enumerable:   true
-				},
-				alpha: {
-					value:        alpha || 255,
-					writable:     true,
-					configurable: false,
-					enumerable:   true
-				}
-			});
+			this.red   = red   || 0;
+			this.green = green || 0;
+			this.blue  = blue  || 0;
+			this.alpha = alpha || 255;
 		};
 
 		Color.prototype.toString = function() {
@@ -771,59 +713,45 @@ var Capsule = (function() {
 			isRunning = false;
 		};
 
-		var defineProperty = function(key, accessor) {
-			Object.defineProperty(Game, key, {
-				enumerable: true,
-				get:        accessor.get,
-				set:        accessor.set
-			});
-		};
+		Game.onDraw    = null;
+		Game.onUpdate  = null;
+		Game.isRunning = null;
+		Game.context   = null;
 
-		defineProperty("onDraw", {
-			get: function() {
-				return drawFunc;
-			},
-			set: function(value) {
-				if (isRunning) {
-					throw new Error("onDraw cannot be changed while the game is running.");
+		defineAccessorProperties(Game, {
+			onDraw: {
+				get: function() {
+					return drawFunc;
+				},
+				set: function(value) {
+					if (isRunning) {
+						throw new Error("onDraw cannot be changed while the game is running.");
+					}
+					drawFunc = value;
 				}
-				drawFunc = value;
-			}
-		});
-
-		defineProperty("onUpdate", {
-			get: function() {
-				return updateFunc;
 			},
-			set: function(value) {
-				if (isRunning) {
-					throw new Error("onUpdate cannot be changed while the game is running.")
+			onUpdate: {
+				get: function() {
+					return updateFunc;
+				},
+				set: function(value) {
+					if (isRunning) {
+						throw new Error("onUpdate cannot be changed while the game is running.")
+					}
+					updateFunc = value;
 				}
-				updateFunc = value;
+			},
+			isRunning: {
+				get: function() {
+					return isRunning;
+				}
+			},
+			context: {
+				get: function() {
+					return context;
+				}
 			}
 		});
-
-		defineProperty("isRunning", {
-			get: function() {
-				return isRunning;
-			}
-		});
-
-		defineProperty("context", {
-			get: function() {
-				return context;
-			}
-		});
-
-		var lockFunction = function(key) {
-			Object.defineProperty(Game, key, {
-				writable:     false,
-				configurable: false
-			});
-		};
-
-		lockFunction("run");
-		lockFunction("stop");
 
 		return Game;
 	}());
