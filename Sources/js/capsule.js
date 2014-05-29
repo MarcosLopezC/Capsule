@@ -491,7 +491,7 @@ var Capsule = (function() {
 	Capsule.Stack = (function() {
 		var Stack = function() {
 			this._items = [];
-			applyDataDescriptor(Stack);
+			applyDataDescriptor(this);
 		};
 
 		Stack.prototype.count = null;
