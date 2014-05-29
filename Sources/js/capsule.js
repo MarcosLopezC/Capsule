@@ -667,6 +667,18 @@ var Capsule = (function() {
 		return Color;
 	}());
 
+	Capsule.Style = (function() {
+		var Style = function() {
+			var Color = Capsule.Color;
+
+			this.fillColor = new Color(255, 255, 255, 255);
+			this.strokeColor = new Color(0, 0, 0, 255);
+			this.strokeThickness = 1;
+		};
+
+		return Style;
+	}());
+
 	Capsule.Game = (function() {
 		var Game = {};
 
