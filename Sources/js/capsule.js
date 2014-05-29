@@ -719,7 +719,7 @@ var Capsule = (function() {
 			var updateLoop = function() {
 				if (isRunning) {
 					updateFunc();
-					window.setTimeout(updateLoop, 0);
+					window.setTimeout(updateLoop, 5);
 				}
 			};
 
