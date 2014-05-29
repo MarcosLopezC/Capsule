@@ -655,12 +655,15 @@ var Capsule = (function() {
 			this.alpha = alpha || 255;
 		};
 
+		var formatColor = function(value) {
+			return Capsule.Math.range(Math.round(value), 0, 255).toString();
+		};
+
 		Color.prototype.toString = function() {
-			var range = Capsule.Math.getRange;
-			var red   = range(this.red,   0, 255).toString();
-			var green = range(this.green, 0, 255).toString();
-			var blue  = range(this.blue,  0, 255).toString();
-			var alpha = range(this.alpha, 0, 255).toString();
+			var red   = formatColor(this.red);
+			var green = formatColor(this.green);
+			var blue  = formatColor(this.blue);
+			var alpha = formatColor(this.alpha);
 			return String.concat("rgba(", red, ", ", green, ", ", blue, ", ", alpha, ")");
 		};
 
