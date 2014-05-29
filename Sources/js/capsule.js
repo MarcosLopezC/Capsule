@@ -351,6 +351,10 @@ var Capsule = (function() {
 			this.height = height || 0;
 		};
 
+		Size.prototype.clone = function() {
+			return new Size(this.width, this.height);
+		};
+
 		Size.prototype.isEmpty = function() {
 			if (this.width === 0 && this.height === 0) {
 				return true;
@@ -705,6 +709,10 @@ var Capsule = (function() {
 			}
 		});
 
+		Color.prototype.clone = function() {
+			return new Color(this.red, this.green, this.blue, this.alpha);
+		};
+
 		var formatColor = function(value) {
 			return Capsule.Math.getRange(Math.round(value), 0, 255).toString();
 		};
@@ -731,6 +739,16 @@ var Capsule = (function() {
 			this.fillColor = new Color(255, 255, 255, 255);
 			this.strokeColor = new Color(0, 0, 0, 255);
 			this.strokeThickness = 1;
+		};
+
+		Style.prototype.clone = function() {
+			var style = new Style();
+
+			style.fillColor       = this.fillColor.clone();
+			style.strokeColor     = this.strokeColor.clone();
+			style.strokeThickness = this.strokeThickness;
+
+			return style;
 		};
 
 		return Style;
