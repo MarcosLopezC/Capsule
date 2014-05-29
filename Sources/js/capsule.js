@@ -657,10 +657,10 @@ var Capsule = (function() {
 
 		Color.prototype.toString = function() {
 			var range = Capsule.Math.getRange;
-			var red   = range(this.red,   0, 255).toString(16);
-			var green = range(this.green, 0, 255).toString(16);
-			var blue  = range(this.blue,  0, 255).toString(16);
-			var alpha = range(this.alpha, 0, 255).toString(16);
+			var red   = range(this.red,   0, 255).toString();
+			var green = range(this.green, 0, 255).toString();
+			var blue  = range(this.blue,  0, 255).toString();
+			var alpha = range(this.alpha, 0, 255).toString();
 			return String.concat("rgba(", red, ", ", green, ", ", blue, ", ", alpha, ")");
 		};
 
