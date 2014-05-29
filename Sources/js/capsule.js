@@ -837,7 +837,7 @@ var Capsule = (function() {
 				},
 				set: function(value) {
 					if (isRunning) {
-						throw new Error("onUpdate cannot be changed while the game is running.")
+						throw new Error("onUpdate cannot be changed while the game is running.");
 					}
 					updateFunc = value;
 				}
