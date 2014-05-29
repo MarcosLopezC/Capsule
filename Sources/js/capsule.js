@@ -649,22 +649,76 @@ var Capsule = (function() {
 
 	Capsule.Color = (function() {
 		var Color = function(red, green, blue, alpha) {
-			this.red   = red   || 0;
-			this.green = green || 0;
-			this.blue  = blue  || 0;
-			this.alpha = alpha || 255;
+			this._red   = red   || 0;
+			this._green = green || 0;
+			this._blue  = blue  || 0;
+			this._alpha = alpha || 255;
+			this._cache = null;
+			applyDataDescriptor(this);
 		};
 
+		var invalidate = function(color) {
+			color._cache = null;
+		};
+
+		Color.prototype.red   = null;
+		Color.prototype.green = null;
+		Color.prototype.blue  = null;
+		Color.prototype.alpha = null;
+
+		defineAccessorProperties(Color.prototype, {
+			red: {
+				get: function() {
+					return this._red;
+				},
+				set: function(value) {
+					this._red = value;
+					invalidate(this);
+				}
+			},
+			green: {
+				get: function() {
+					return this._green;
+				},
+				set: function(value) {
+					this._green = value;
+					invalidate(this);
+				}
+			},
+			blue: {
+				get: function() {
+					return this._blue;
+				},
+				set: function(value) {
+					this._blue = value;
+					invalidate(this);
+				}
+			},
+			alpha: {
+				get: function() {
+					return this._alpha;
+				},
+				set: function(value) {
+					this._alpha = value;
+					invalidate(this);
+				}
+			}
+		});
+
 		var formatColor = function(value) {
-			return Capsule.Math.range(Math.round(value), 0, 255).toString();
+			return Capsule.Math.getRange(Math.round(value), 0, 255).toString();
 		};
 
 		Color.prototype.toString = function() {
-			var red   = formatColor(this.red);
-			var green = formatColor(this.green);
-			var blue  = formatColor(this.blue);
-			var alpha = formatColor(this.alpha);
-			return String.concat("rgba(", red, ", ", green, ", ", blue, ", ", alpha, ")");
+			if (this._cache === null) {
+				var red   = formatColor(this.red);
+				var green = formatColor(this.green);
+				var blue  = formatColor(this.blue);
+				var alpha = formatColor(this.alpha);
+				this._cache = String.concat("rgba(", red, ", ", green, ", ", blue, ", ", alpha, ")");
+			}
+
+			return this._cache;
 		};
 
 		return Color;
