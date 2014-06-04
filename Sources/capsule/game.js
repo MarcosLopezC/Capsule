@@ -1,6 +1,7 @@
 // Requires: capsule.js
 // Requires: utilities.js
 // Requires: config.js
+// Requires: Stopwatch.js
 
 capsule.game = (function() {
 	"use strict";
@@ -11,6 +12,7 @@ capsule.game = (function() {
 	var updateFunc = null;
 	var isRunning  = false;
 	var context    = null;
+	var stopwatch  = new capsule.Stopwatch();
 
 	var requestAnimationFrame = (function() {
 		return (
@@ -27,31 +29,32 @@ capsule.game = (function() {
 		if (isRunning) {
 			throw new Error("Game is already running.");
 		}
-		if (typeof updateFunc !== "function") {
-			throw new Error("onUpdate has to be of type 'function'. It cannot be null or undefined.");
-		}
 		if (typeof drawFunc !== "function") {
 			throw new Error("onDraw has to be of type 'function'. It cannot be null of undefined.");
 		}
 
-		var drawLoop = function() {
-			if (isRunning) {
-				drawFunc();
-				requestAnimationFrame(drawLoop);
-			}
-		};
-
-		var updateLoop = function() {
-			if (isRunning) {
-				updateFunc();
-				window.setTimeout(updateLoop, 5);
-			}
-		};
-
 		context   = document.getElementById(capsule.config.ID_CANVAS).getContext("2d");
 		isRunning = true;
 
-		updateLoop();
+		stopwatch.restart();
+
+		if (typeof updateFunc === "function") {
+			var updateLoop = function() {
+				if (isRunning) {
+					updateFunc(stopwatch.elapsed);
+					stopwatch.reset();
+					window.setTimeout(updateLoop, 5);
+				}
+			};
+			updateLoop();
+		}
+
+		var drawLoop = function() {
+			if (isRunning) {
+				drawFunc(context);
+				requestAnimationFrame(drawLoop);
+			}
+		};
 		drawLoop();
 	};
 
@@ -60,7 +63,9 @@ capsule.game = (function() {
 			throw new Error("Game cannot be stopped because is not running.");
 		}
 
-		context = null;
+		stopwatch.stop();
+
+		context   = null;
 		isRunning = false;
 	};
 
