@@ -5,11 +5,22 @@
 capsule.Sprite = (function() {
 	"use strict";
 
-	var Sprite = function(imagePath, origin) {
-		this._image = new Image();
-		this._image.src = imagePath;
+	var Sprite = function(path, origin) {
+		this.origin   = origin || new capsule.Vector();
+		this.position = new capsule.Vector();
+		this.rotation = 0;
+		this.scale    = 1;
 
-		this.origin = origin || new capsule.Vector();
+		var image = new Image();
+		if (origin) {
+			var self = this;
+			image.addEventListener("load", function() {
+				self.origin.x = image.width  / 2;
+				self.origin.y = image.height / 2;
+			});
+		}
+		image.src = path;
+		this._image = image;
 	};
 
 	Sprite.prototype.isLoaded = null;
@@ -35,44 +46,25 @@ capsule.Sprite = (function() {
 		}
 	});
 
-	Sprite.prototype.draw = function(context, position, rotation, scale) {
+	Sprite.prototype.draw = function(context) {
 		context.save();
+
+		var origin   = this.origin;
+		var position = this.position;
+		var rotation = this.rotation;
+		var scale    = this.scale;
 
 		context.translate(position.x, position.y);
 
-		if (rotation) {
+		if (rotation !== 0) {
 			context.rotate(rotation);
 		}
 
-		if (scale) {
-			context.scale(scale.x, scale.y);
+		if (scale !== 1) {
+			context.scale(scale, scale);
 		}
 
-		context.drawImage(this._image, 0 - this.origin.x, 0 - this.origin.y);
-
-		context.restore();
-
-		return this;
-	};
-
-	Sprite.prototype.drawClip =	function(context, clip, position, rotation, scale) {
-		context.save();
-
-		context.translate(position.x, position.y);
-
-		if (rotation) {
-			context.rotate(rotation);
-		}
-
-		if (scale) {
-			context.scale(scale.x, scale.y);
-		}
-
-		context.drawImage(this._image,
-			clip.position.x, clip.position.y,
-			clip.width, clip.height,
-			this.origin.x, this.origin.y,
-			clip.width, clip.height);
+		context.drawImage(this._image, 0 - origin.x, 0 - origin.y);
 
 		context.restore();
 
