@@ -14,3 +14,4 @@
 // Requires: capsule\input.js
 // Requires: capsule\math.js
 // Requires: capsule\sprite.js
+// Requires: capsule\Sound.js
