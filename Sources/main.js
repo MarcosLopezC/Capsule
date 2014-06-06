@@ -13,5 +13,5 @@
 // Requires: capsule\game.js
 // Requires: capsule\input.js
 // Requires: capsule\math.js
-// Requires: capsule\sprite.js
+// Requires: capsule\Sprite.js
 // Requires: capsule\Sound.js
