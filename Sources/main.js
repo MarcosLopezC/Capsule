@@ -5,6 +5,7 @@
 // Requires: capsule\Rectangle.js
 // Requires: capsule\Size.js
 // Requires: capsule\Stack.js
+// Requires: capsule\Queue.js
 // Requires: capsule\Stopwatch.js
 // Requires: capsule\Style.js
 // Requires: capsule\Vector.js
