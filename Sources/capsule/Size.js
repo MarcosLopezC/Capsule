@@ -38,12 +38,7 @@ capsule.Size = (function() {
 	};
 
 	Size.prototype.isEmpty = function() {
-		if (this.width === 0 && this.height === 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return this.width === 0 && this.height === 0;
 	};
 
 	Size.prototype.truncate = function() {
