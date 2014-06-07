@@ -23,12 +23,12 @@ capsule.Sprite = (function() {
 		this._image = image;
 	};
 
-	Sprite.prototype.isLoaded = null;
-	Sprite.prototype.width    = null;
-	Sprite.prototype.height   = null;
+	Sprite.prototype.isReady = null;
+	Sprite.prototype.width   = null;
+	Sprite.prototype.height  = null;
 
 	capsule.utilities.defineAccessorProperties(Sprite.prototype, {
-		isLoaded: {
+		isReady: {
 			get: function() {
 				// Image width and height is 0 until the image is loaded.
 				return this._image.width + this._image.height !== 0;
