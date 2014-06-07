@@ -85,7 +85,7 @@ capsule.Vector = (function() {
 	};
 
 	Vector.prototype.normalize = function() {
-		var length = this.getLength();
+		var length = this.length;
 		this.x = this.x / length;
 		this.y = this.y / length;
 		return this;
