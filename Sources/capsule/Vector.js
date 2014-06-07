@@ -59,7 +59,7 @@ capsule.Vector = (function() {
 		return this;
 	};
 
-	Vector.prototype.addVector = function(vector) {
+	Vector.prototype.add = function(vector) {
 		this.x += vector.x;
 		this.y += vector.y;
 		return this;
