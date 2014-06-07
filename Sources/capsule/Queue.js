@@ -20,8 +20,7 @@ capsule.Queue = (function() {
 		},
 		top: {
 			get: function() {
-				var items = this._items;
-				return items[items.length - 1];
+				return this._items[0];
 			}
 		}
 	});
