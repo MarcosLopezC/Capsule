@@ -3,6 +3,7 @@
 // Requires: capsule\Color.js
 // Requires: capsule\List.js
 // Requires: capsule\Rectangle.js
+// Requires: capsule\Circle.js
 // Requires: capsule\Size.js
 // Requires: capsule\Stack.js
 // Requires: capsule\Queue.js
