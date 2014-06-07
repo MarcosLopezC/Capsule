@@ -4,11 +4,11 @@
 capsule.Sound = (function() {
 	"use strict";
 
-	var Sound = function(path) {
+	var Sound = function(path, voices) {
 		var audio      = null;
 		var audioArray = [];
 		var i;
-		var length = 10;
+		var length = voices || 10;
 		for (i = 0; i < length; i += 1) {
 			audio = new Audio();
 			audio.preload = "auto";
