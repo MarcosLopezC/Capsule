@@ -21,6 +21,8 @@ capsule.Sprite = (function() {
 		}
 		image.src = path;
 		this._image = image;
+
+		capsule.utilities.applyDataDescriptor(this);
 	};
 
 	Sprite.prototype.isReady = null;
