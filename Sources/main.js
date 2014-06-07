@@ -15,3 +15,4 @@
 // Requires: capsule\math.js
 // Requires: capsule\Sprite.js
 // Requires: capsule\Sound.js
+// Requires: capsule\Music.js
