@@ -46,8 +46,8 @@ capsule.Stack = (function() {
 		return stack;
 	};
 
-	Stack.prototype.forEach = function(lambda) {
-		this._items.forEach(lambda);
+	Stack.prototype.forEach = function(callback) {
+		this._items.forEach(callback);
 		return this;
 	};
 

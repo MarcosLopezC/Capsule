@@ -103,8 +103,8 @@ capsule.List = (function() {
 		return list;
 	};
 
-	List.prototype.forEach = function(lambda) {
-		this._items.forEach(lambda);
+	List.prototype.forEach = function(callback) {
+		this._items.forEach(callback);
 		return this;
 	};
 
