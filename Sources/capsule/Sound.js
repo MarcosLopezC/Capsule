@@ -12,7 +12,7 @@ capsule.Sound = (function() {
 		for (i = 0; i < length; i += 1) {
 			audio = new Audio();
 			audio.preload = "auto";
-			audio.src = path;
+			audio.src     = path;
 			audioArray[i] = audio;
 		}
 		this._audioArray = audioArray;
