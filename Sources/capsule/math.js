@@ -36,9 +36,17 @@ capsule.math = (function() {
 		return (Math.random() * (max - min)) + min;
 	};
 
+	math.getRandomInteger = function(min, max) {
+		return Math.floor(math.getRandomNumber(min, max + 1));
+	};
+
 	// Returns a value between min and max.
 	math.clamp = function(value, min, max) {
 		return Math.min(Math.max(value, min), max);
+	};
+
+	math.isBetween = function(value, min, max) {
+		return value > min && value < max;
 	};
 
 	math.normalize = function(value, min, max) {
