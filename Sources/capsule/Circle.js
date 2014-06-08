@@ -1,4 +1,5 @@
 // Requires: capsule.js
+// Requires: math.js
 // Requires: Vector.js
 // Requires: Style.js
 
@@ -41,7 +42,7 @@ capsule.Circle = (function() {
 
 		context.fillStyle = style.fillColor.toString();
 		context.beginPath();
-		context.arc(position.x, position.y, radius, 0, 2 * Math.PI);
+		context.arc(position.x, position.y, radius, 0, capsule.math.TAU);
 		context.fill();
 
 		if (style.strokeThickness > 0) {
