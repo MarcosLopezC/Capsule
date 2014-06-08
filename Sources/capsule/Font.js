@@ -57,6 +57,15 @@ capsule.Font = (function() {
 		}
 	});
 
+	Font.prototype.clone = function() {
+		var newFont = new Font();
+		newFont.bold   = this.bold;
+		newFont.italic = this.italic;
+		newFont.size   = this.size;
+		newFont.family = this.family;
+		return newFont;
+	};
+
 	Font.prototype.toString = function() {
 		// CSS font syntax: font-style font-variant font-weight font-size/line-height font-family;
 		if (this._cssProperty === null) {
