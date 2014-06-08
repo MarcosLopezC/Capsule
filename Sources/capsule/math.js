@@ -37,16 +37,8 @@ capsule.math = (function() {
 	};
 
 	// Returns a value between min and max.
-	math.getRange = function(value, min, max) {
-		if (value < min) {
-			return min;
-		}
-		else if (value > max) {
-			return max;
-		}
-		else {
-			return value;
-		}
+	math.clamp = function(value, min, max) {
+		return Math.min(Math.max(value, min), max);
 	};
 
 	math.normalize = function(value, min, max) {
