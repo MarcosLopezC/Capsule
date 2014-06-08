@@ -18,3 +18,4 @@
 // Requires: capsule\Sprite.js
 // Requires: capsule\Sound.js
 // Requires: capsule\Music.js
+// Requires: capsule\Font.js
