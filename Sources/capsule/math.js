@@ -49,6 +49,19 @@ capsule.math = (function() {
 		}
 	};
 
+	math.normalize = function(value, min, max) {
+		return (value - min) / (max - min);
+	};
+
+	math.getLinearInterpolation = function(value, min, max) {
+		return (1 - value) * min + value * max;
+	};
+
+	math.map = function(value, fromMin, fromMax, toMin, toMax) {
+		var normal = math.normalize(value, fromMin, fromMax);
+		return math.getLinearInterpolation(normal, toMin, toMax);
+	};
+
 	capsule.utilities.applyDataDescriptor(math);
 
 	return math;
