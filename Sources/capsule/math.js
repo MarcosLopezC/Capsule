@@ -62,6 +62,14 @@ capsule.math = (function() {
 		return math.getLinearInterpolation(normal, toMin, toMax);
 	};
 
+	math.toDegrees = function(radians) {
+		return (radians * 180) / Math.PI;
+	};
+
+	math.toRadians = function(degrees) {
+		return (degrees * Math.PI) / 180;
+	};
+
 	capsule.utilities.applyDataDescriptor(math);
 
 	return math;
