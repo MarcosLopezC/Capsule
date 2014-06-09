@@ -55,12 +55,11 @@ capsule.Rectangle = (function() {
 
 		context.save();
 
-		context.fillStyle = style.fillColor.toString();
+		style.apply(context);
+
 		context.fillRect(position.x, position.y, size.width, size.height);
 
 		if (style.strokeThickness > 0) {
-			context.lineWidth   = style.strokeThickness;
-			context.strokeStyle = style.strokeColor.toString();
 			context.strokeRect(position.x, position.y, size.width, size.height);
 		}
 

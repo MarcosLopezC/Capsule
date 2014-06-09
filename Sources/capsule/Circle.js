@@ -40,14 +40,13 @@ capsule.Circle = (function() {
 
 		context.save();
 
-		context.fillStyle = style.fillColor.toString();
+		style.apply(context);
+
 		context.beginPath();
 		context.arc(position.x, position.y, radius, 0, capsule.math.TAU);
 		context.fill();
 
 		if (style.strokeThickness > 0) {
-			context.lineWidth   = style.strokeThickness;
-			context.strokeStyle = style.strokeColor.toString();
 			context.stroke();
 		}
 
