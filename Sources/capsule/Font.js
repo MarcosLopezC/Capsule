@@ -66,6 +66,10 @@ capsule.Font = (function() {
 		return newFont;
 	};
 
+	Font.prototype.apply = function(context) {
+		context.font = this.toString();
+	};
+
 	Font.prototype.toString = function() {
 		// CSS font syntax: font-style font-variant font-weight font-size/line-height font-family;
 		if (this._cssProperty === null) {

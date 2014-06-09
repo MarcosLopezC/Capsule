@@ -22,5 +22,11 @@ capsule.Style = (function() {
 		return style;
 	};
 
+	Style.prototype.apply = function(context) {
+		context.fillStyle   = this.fillColor.toString();
+		context.strokeStyle = this.strokeColor.toString();
+		context.lineWidth   = this.strokeThickness;
+	};
+
 	return Style;
 }());
