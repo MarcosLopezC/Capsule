@@ -3,6 +3,9 @@
 module.exports = function(grunt) {
 	grunt.task.loadNpmTasks("grunt-shell");
 	grunt.task.loadNpmTasks("grunt-contrib-watch");
+	grunt.task.loadNpmTasks("grunt-contrib-jshint");
+	grunt.task.loadNpmTasks("grunt-contrib-qunit");
+	grunt.task.loadNpmTasks("grunt-contrib-uglify");
 
 	var jsBuilderPath = "jsb";
 
@@ -11,6 +14,7 @@ module.exports = function(grunt) {
 	};
 
 	grunt.config.init({
+		pkg: grunt.file.readJSON("package.json"),
 		shell: {
 			build: {
 				command: build("Sources/main.js", "Build/capsule.js")
@@ -23,6 +27,19 @@ module.exports = function(grunt) {
 			},
 			options: {
 				interrupt: true
+			}
+		},
+		jshint: {
+			files: ["Build/*.js", '!Build/*.min.js'],
+		},
+		qunit: {
+			files: ["Tests/*.html"]
+		},
+		uglify: {
+			build: {
+				files: {
+					"Build/<%= pkg.name %>.min.js": ["Build/*.js"]
+				}
 			}
 		}
 	});
