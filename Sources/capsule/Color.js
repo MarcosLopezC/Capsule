@@ -67,7 +67,7 @@ capsule.Color = (function() {
 	};
 
 	var formatColor = function(value) {
-		return capsule.math.clamp(Math.round(value), 0, 255).toString();
+		return capsule.math.constrain(Math.round(value), 0, 255).toString();
 	};
 
 	Color.prototype.toString = function() {

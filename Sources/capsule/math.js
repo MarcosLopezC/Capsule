@@ -41,7 +41,7 @@ capsule.math = (function() {
 	};
 
 	// Returns a value between min and max.
-	math.clamp = function(value, min, max) {
+	math.constrain = function(value, min, max) {
 		return Math.min(Math.max(value, min), max);
 	};
 
