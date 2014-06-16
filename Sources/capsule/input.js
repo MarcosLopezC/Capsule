@@ -1,5 +1,4 @@
 // Requires: capsule.js
-// Requires: config.js
 // Requires: Vector.js
 
 capsule.input = (function() {
@@ -37,16 +36,6 @@ capsule.input = (function() {
 		document.addEventListener("mousedown",   keyDownHandler);
 		document.addEventListener("mouseup",     keyUpHandler);
 		document.addEventListener("contextmenu", contextmenuHandler);
-
-		document.getElementById(capsule.config.ID_FULLSCREEN).addEventListener("click", function() {
-			var canvas = document.getElementById(capsule.config.ID_CANVAS);
-			(
-				canvas.requestFullscreen       ||
-				canvas.msRequestFullscreen     ||
-				canvas.mozRequestFullScreen    ||
-				canvas.webkitRequestFullscreen
-			).call(canvas);
-		});
 	});
 
 	return {
