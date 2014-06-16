@@ -31,13 +31,6 @@ capsule.Sound = (function() {
 		return this;
 	};
 
-	Sound.prototype.pause = function() {
-		this._audioArray.forEach(function(audio) {
-			audio.pause();
-		});
-		return this;
-	};
-
 	Sound.prototype.stop = function() {
 		this._audioArray.forEach(function(audio) {
 			audio.pause();
