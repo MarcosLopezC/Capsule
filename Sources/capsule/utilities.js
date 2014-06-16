@@ -47,6 +47,10 @@ capsule.utilities.applyDataDescriptor = (function() {
 capsule.utilities.defineAccessorProperties = function(object, accessors) {
 	"use strict";
 
+	var defaultAccessor = function() {
+		throw new Error("Accessor is not defined.")
+	};
+
 	Object.getOwnPropertyNames(accessors).forEach(function(key) {
 		if (typeof accessors[key].get !== "function") {
 			throw new Error("Accessor descriptors must have a 'get' property.");
@@ -55,7 +59,7 @@ capsule.utilities.defineAccessorProperties = function(object, accessors) {
 		Object.defineProperty(object, key, {
 			enumerable: true,
 			get:        accessors[key].get,
-			set:        accessors[key].set
+			set:        accessors[key].set || defaultAccessor
 		});
 	});
 };
