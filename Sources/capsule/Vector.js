@@ -9,16 +9,6 @@ capsule.Vector = (function() {
 		this.y = y || 0;
 	};
 
-	Vector.getDistanceBetween2 = function(vector1, vector2) {
-		var x = vector1.x - vector2.x;
-		var y = vector1.y - vector2.y;
-		return (x * x) + (y * y);
-	};
-
-	Vector.getDistanceBetween = function(vector1, vector2) {
-		return Math.sqrt(Vector.getDistanceBetween(vector1, vector2));
-	};
-
 	capsule.utilities.defineAccessorProperties(Vector.prototype, {
 		length2: {
 			get: function() {
@@ -42,6 +32,16 @@ capsule.Vector = (function() {
 			}
 		}
 	});
+
+	Vector.prototype.getDistanceTo2 = function(vector) {
+		var x = this.x - vector.x;
+		var y = this.y - vector.y;
+		return (x * x) + (y * y);
+	};
+
+	Vector.prototype.getDistanceTo = function(vector) {
+		return Math.sqrt(this.getDistanceTo2(vector));
+	};
 
 	Vector.prototype.setPolar = function(angle, length) {
 		if (angle === null) {
