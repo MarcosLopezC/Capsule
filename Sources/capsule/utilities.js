@@ -6,21 +6,11 @@ capsule.utilities.applyDataDescriptor = (function() {
 	"use strict";
 
 	var isConstant = function(name) {
-		if (name.toLocaleUpperCase() === name) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return name.toLocaleUpperCase() === name;
 	};
 
 	var isPrivate = function(name) {
-		if (name.charAt(0) === "_") {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return name.charAt(0) === "_";
 	};
 
 	return function(object) {
