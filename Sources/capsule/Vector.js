@@ -87,10 +87,6 @@ capsule.Vector = (function() {
 		return this;
 	};
 
-	Vector.prototype.rotate = function(angle) {
-		return this.setAngle(this.angle + angle);
-	};
-
 	Vector.prototype.clone = function() {
 		return new Vector(this.x, this.y);
 	};
