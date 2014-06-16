@@ -21,6 +21,7 @@ capsule.buttonCode = (function() {
 		PAUSE_BREAK:     19,
 		CAPS_LOCK:       20,
 		ESCAPE:          27,
+		SPACE:           32,
 
 		INSERT:          45,
 		DELETE:          46,
