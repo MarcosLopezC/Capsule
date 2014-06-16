@@ -34,6 +34,8 @@ capsule.Text = (function() {
 		}
 
 		context.restore();
+
+		return this;
 	};
 
 	return Text;

@@ -16,15 +16,18 @@ capsule.Music = (function() {
 
 	Music.prototype.play = function() {
 		this._audio.play();
+		return this;
 	};
 
 	Music.prototype.pause = function() {
 		this._audio.pause();
+		return this;
 	};
 
 	Music.prototype.stop = function() {
 		this.pause();
 		this.position = 0;
+		return this;
 	};
 
 	capsule.utilities.defineAccessorProperties(Music.prototype, {

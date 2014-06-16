@@ -26,6 +26,8 @@ capsule.Style = (function() {
 		context.fillStyle   = this.fillColor.toString();
 		context.strokeStyle = this.strokeColor.toString();
 		context.lineWidth   = this.strokeThickness;
+
+		return this;
 	};
 
 	return Style;

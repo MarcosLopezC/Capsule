@@ -42,6 +42,7 @@ capsule.Size = (function() {
 	Size.prototype.truncate = function() {
 		this.width  = Math.floor(this.width);
 		this.height = Math.floor(this.height);
+		return this;
 	};
 
 	return Size;

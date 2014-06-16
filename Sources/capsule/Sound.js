@@ -28,12 +28,14 @@ capsule.Sound = (function() {
 	Sound.prototype.play = function() {
 		advanceIndex(this);
 		this._audioArray[this._index].play();
+		return this;
 	};
 
 	Sound.prototype.pause = function() {
 		this._audioArray.forEach(function(audio) {
 			audio.pause();
 		});
+		return this;
 	};
 
 	Sound.prototype.stop = function() {
@@ -41,6 +43,7 @@ capsule.Sound = (function() {
 			audio.pause();
 			audio.position = 0;
 		});
+		return this;
 	};
 
 	capsule.utilities.defineAccessorProperties(Sound.prototype, {

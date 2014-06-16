@@ -68,6 +68,7 @@ capsule.Font = (function() {
 
 	Font.prototype.apply = function(context) {
 		context.font = this.toString();
+		return this;
 	};
 
 	Font.prototype.toString = function() {

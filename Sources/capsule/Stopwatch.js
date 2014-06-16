@@ -35,6 +35,7 @@ capsule.Stopwatch = (function() {
 			this._startTime = Date.now();
 			this._isRunning = true;
 		}
+		return this;
 	};
 
 	Stopwatch.prototype.stop = function() {
@@ -42,6 +43,7 @@ capsule.Stopwatch = (function() {
 			this._elapsed += Date.now() - this._startTime;
 			this._isRunning = false;
 		}
+		return this;
 	};
 
 	Stopwatch.prototype.reset = function() {
@@ -49,11 +51,13 @@ capsule.Stopwatch = (function() {
 			this._startTime = Date.now();
 		}
 		this._elapsed = 0;
+		return this;
 	};
 
 	Stopwatch.prototype.restart = function() {
 		this.reset();
 		this.start();
+		return this;
 	};
 
 	return Stopwatch;
