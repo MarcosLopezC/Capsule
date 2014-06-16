@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 			}
 		},
 		jshint: {
-			files: ["Build/*.js", '!Build/*.min.js'],
+			files: ["Build/*.js", "!Build/*.min.js"],
 		},
 		qunit: {
 			files: ["Tests/*.html"]
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 		uglify: {
 			build: {
 				files: {
-					"Build/<%= pkg.name %>.min.js": ["Build/*.js"]
+					"Build/<%= pkg.name %>.min.js": ["Build/*.js", "!Build/*.min.js"]
 				}
 			}
 		}
