@@ -48,7 +48,7 @@ capsule.utilities.defineAccessorProperties = function(object, accessors) {
 	"use strict";
 
 	var defaultAccessor = function() {
-		throw new Error("Accessor is not defined.")
+		throw new Error("Accessor is not defined.");
 	};
 
 	Object.getOwnPropertyNames(accessors).forEach(function(key) {
