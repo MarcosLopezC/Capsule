@@ -14,11 +14,6 @@ capsule.Queue = (function() {
 			get: function() {
 				return this._items.length;
 			}
-		},
-		top: {
-			get: function() {
-				return this._items[0];
-			}
 		}
 	});
 
@@ -29,6 +24,10 @@ capsule.Queue = (function() {
 	Queue.prototype.push = function(item) {
 		this._items.push(item);
 		return this;
+	};
+
+	Queue.prototype.peek = function() {
+		return this._items[0];
 	};
 
 	Queue.prototype.clear = function() {

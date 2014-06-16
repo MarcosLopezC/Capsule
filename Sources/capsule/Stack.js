@@ -14,12 +14,6 @@ capsule.Stack = (function() {
 			get: function() {
 				return this._items.length;
 			}
-		},
-		top: {
-			get: function() {
-				var items = this._items;
-				return items[items.length - 1];
-			}
 		}
 	});
 
@@ -30,6 +24,11 @@ capsule.Stack = (function() {
 	Stack.prototype.push = function(item) {
 		this._items.push(item);
 		return this;
+	};
+
+	Stack.prototype.peek = function() {
+		var items = this._items;
+		return items[items.length - 1];
 	};
 
 	Stack.prototype.clear = function() {
