@@ -9,9 +9,6 @@ capsule.Stack = (function() {
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
-	Stack.prototype.count = null;
-	Stack.prototype.top   = null;
-
 	capsule.utilities.defineAccessorProperties(Stack.prototype, {
 		count: {
 			get: function() {

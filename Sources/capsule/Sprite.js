@@ -25,10 +25,6 @@ capsule.Sprite = (function() {
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
-	Sprite.prototype.isReady = null;
-	Sprite.prototype.width   = null;
-	Sprite.prototype.height  = null;
-
 	capsule.utilities.defineAccessorProperties(Sprite.prototype, {
 		isReady: {
 			get: function() {

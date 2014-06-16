@@ -27,14 +27,6 @@ capsule.Music = (function() {
 		this.position = 0;
 	};
 
-	Music.prototype.isReady  = null;
-	Music.prototype.isPaused = null;
-	Music.prototype.volume   = null;
-	Music.prototype.duration = null;
-	Music.prototype.position = null;
-	Music.prototype.speed    = null;
-	Music.prototype.loop     = null;
-
 	capsule.utilities.defineAccessorProperties(Music.prototype, {
 		isReady: {
 			get: function() {

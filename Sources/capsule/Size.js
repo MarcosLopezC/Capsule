@@ -11,9 +11,6 @@ capsule.Size = (function() {
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
-	Size.prototype.width  = null;
-	Size.prototype.height = null;
-
 	capsule.utilities.defineAccessorProperties(Size.prototype, {
 		width: {
 			get: function() {

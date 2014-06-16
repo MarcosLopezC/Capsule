@@ -9,8 +9,6 @@ capsule.List = (function() {
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
-	List.prototype.count = null;
-
 	capsule.utilities.defineAccessorProperties(List.prototype, {
 		count: {
 			get: function() {

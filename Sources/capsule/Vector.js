@@ -19,10 +19,6 @@ capsule.Vector = (function() {
 		return Math.sqrt(Vector.getDistanceBetween(vector1, vector2));
 	};
 
-	Vector.prototype.length2 = null;
-	Vector.prototype.length  = null;
-	Vector.prototype.angle   = null;
-
 	capsule.utilities.defineAccessorProperties(Vector.prototype, {
 		length2: {
 			get: function() {

@@ -12,9 +12,6 @@ capsule.Stopwatch = (function() {
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
-	Stopwatch.prototype.elapsed   = null;
-	Stopwatch.prototype.isRunning = null;
-
 	capsule.utilities.defineAccessorProperties(Stopwatch.prototype, {
 		elapsed: {
 			get: function() {

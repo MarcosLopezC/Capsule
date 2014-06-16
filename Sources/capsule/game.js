@@ -69,11 +69,6 @@ capsule.game = (function() {
 		isRunning = false;
 	};
 
-	game.onDraw    = null;
-	game.onUpdate  = null;
-	game.isRunning = null;
-	game.context   = null;
-
 	capsule.utilities.defineAccessorProperties(game, {
 		onDraw: {
 			get: function() {

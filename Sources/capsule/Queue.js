@@ -9,9 +9,6 @@ capsule.Queue = (function() {
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
-	Queue.prototype.count = null;
-	Queue.prototype.top   = null;
-
 	capsule.utilities.defineAccessorProperties(Queue.prototype, {
 		count: {
 			get: function() {

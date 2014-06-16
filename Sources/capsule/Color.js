@@ -18,11 +18,6 @@ capsule.Color = (function() {
 		color._cache = null;
 	};
 
-	Color.prototype.red   = null;
-	Color.prototype.green = null;
-	Color.prototype.blue  = null;
-	Color.prototype.alpha = null;
-
 	capsule.utilities.defineAccessorProperties(Color.prototype, {
 		red: {
 			get: function() {
