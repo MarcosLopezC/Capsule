@@ -27,15 +27,16 @@ capsule.Size = (function() {
 			set: function(value) {
 				this._height = Math.max(0, value);
 			}
+		},
+		isEmpty: {
+			get: function() {
+				return this.width === 0 && this.height === 0;
+			}
 		}
 	});
 
 	Size.prototype.clone = function() {
 		return new Size(this.width, this.height);
-	};
-
-	Size.prototype.isEmpty = function() {
-		return this.width === 0 && this.height === 0;
 	};
 
 	Size.prototype.truncate = function() {
