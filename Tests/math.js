@@ -33,7 +33,7 @@ QUnit.test("capsule.math.getRandomNumber", function(assert) {
 	var getRandomNumber = capsule.math.getRandomNumber;
 	var isBetween       = capsule.math.isBetween;
 
-	for (i = 5; i < 100; i += 5) {
+	for (i = 0; i < 100; i += 1) {
 		value = getRandomNumber(0, i);
 		assert.ok(isBetween(value, 0, i),
 			value + " is in the expected range. Min: 0, Max: " + i);
@@ -52,7 +52,7 @@ QUnit.test("capsule.math.getRandomInteger", function(assert) {
 	var getRandomInteger = capsule.math.getRandomInteger;
 	var isBetween        = capsule.math.isBetween;
 
-	for (i = 0; i < 100; i += 5) {
+	for (i = 0; i < 100; i += 1) {
 		value = getRandomInteger(0, i);
 		assert.equal(value, Math.floor(value), value + " is an integer.");
 		assert.ok(isBetween(value, 0, i), value + " is in the expected range. Min: 0, Max: " + i);
