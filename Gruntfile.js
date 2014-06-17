@@ -44,5 +44,5 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask("default", ["shell", "jshint", "uglify"]);
+	grunt.registerTask("default", ["shell", "jshint", "uglify", "qunit"]);
 };
