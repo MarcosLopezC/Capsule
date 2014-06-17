@@ -1,6 +1,5 @@
 // Requires: capsule.js
 // Requires: utilities.js
-// Requires: config.js
 // Requires: Stopwatch.js
 
 capsule.game = (function() {
@@ -8,11 +7,13 @@ capsule.game = (function() {
 
 	var game = Object.create(null);
 
-	var drawFunc   = null;
-	var updateFunc = null;
-	var isRunning  = false;
-	var context    = null;
-	var stopwatch  = new capsule.Stopwatch();
+	var drawHandler   = null;
+	var updateHandler = null;
+	var resizeHandler = null;
+	var isRunning     = false;
+	var context       = null;
+	var elapsedTimer  = new capsule.Stopwatch();
+	var totalTimer    = new capsule.Stopwatch();
 
 	var requestAnimationFrame = (function() {
 		return (
@@ -29,33 +30,46 @@ capsule.game = (function() {
 		if (isRunning) {
 			throw new Error("Game is already running.");
 		}
-		if (typeof drawFunc !== "function") {
-			throw new Error("onDraw has to be of type 'function'. It cannot be null of undefined.");
+
+		var canvas = document.getElementById("capsule") ||
+			document.getElementsByTagName("canvas")[0];
+
+		if (!canvas) {
+			throw new Error("capsule.game cannot find a canvas to draw on.");
 		}
 
-		context   = document.getElementById(capsule.config.ID_CANVAS).getContext("2d");
+		context = canvas.getContext("2d");
+
 		isRunning = true;
 
-		stopwatch.restart();
+		elapsedTimer.restart();
+		totalTimer.start();
 
-		if (typeof updateFunc === "function") {
+		if (typeof resizeHandler === "function") {
+			window.addEventListener("resize", resizeHandler);
+			resizeHandler();
+		}
+
+		if (typeof updateHandler === "function") {
 			var updateLoop = function() {
 				if (isRunning) {
-					updateFunc(stopwatch.elapsed);
-					stopwatch.reset();
+					updateHandler(elapsedTimer.elapsed, totalTimer.elapsed);
+					elapsedTimer.reset();
 					window.setTimeout(updateLoop, 5);
 				}
 			};
 			updateLoop();
 		}
 
-		var drawLoop = function() {
-			if (isRunning) {
-				drawFunc(context);
-				requestAnimationFrame(drawLoop);
-			}
-		};
-		drawLoop();
+		if (typeof drawHandler === "function") {
+			var drawLoop = function() {
+				if (isRunning) {
+					drawHandler(context);
+					requestAnimationFrame(drawLoop);
+				}
+			};
+			drawLoop();
+		}
 	};
 
 	game.stop = function() {
@@ -63,7 +77,10 @@ capsule.game = (function() {
 			throw new Error("Game cannot be stopped because is not running.");
 		}
 
-		stopwatch.stop();
+		window.removeEventListener("resize", resizeHandler);
+
+		elapsedTimer.stop();
+		totalTimer.stop();
 
 		context   = null;
 		isRunning = false;
@@ -72,24 +89,35 @@ capsule.game = (function() {
 	capsule.utilities.defineAccessorProperties(game, {
 		onDraw: {
 			get: function() {
-				return drawFunc;
+				return drawHandler;
 			},
 			set: function(value) {
 				if (isRunning) {
 					throw new Error("onDraw cannot be changed while the game is running.");
 				}
-				drawFunc = value;
+				drawHandler = value;
 			}
 		},
 		onUpdate: {
 			get: function() {
-				return updateFunc;
+				return updateHandler;
 			},
 			set: function(value) {
 				if (isRunning) {
 					throw new Error("onUpdate cannot be changed while the game is running.");
 				}
-				updateFunc = value;
+				updateHandler = value;
+			}
+		},
+		onResize: {
+			get: function() {
+				return resizeHandler;
+			},
+			set: function(value) {
+				if (isRunning) {
+					throw new Error("onResize cannot be changed while the game is running.");
+				}
+				resizeHandler = value;
 			}
 		},
 		isRunning: {
@@ -100,6 +128,23 @@ capsule.game = (function() {
 		context: {
 			get: function() {
 				return context;
+			}
+		},
+		isFullscreen: {
+			get: function() {
+				return !!(
+					document.fullscreenElement       ||
+					document.mozFullScreenElement    ||
+					document.webkitFullscreenElement ||
+					document.msFullscreenElement
+				);
+			}
+		},
+		windowSize: {
+			get: function() {
+				if (isRunning) {
+					return new capsule.Size(window.innerWidth, window.innerHeight);
+				}
 			}
 		}
 	});

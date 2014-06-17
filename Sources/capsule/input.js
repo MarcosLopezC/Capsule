@@ -1,15 +1,43 @@
 // Requires: capsule.js
 // Requires: Vector.js
+// Requires: buttonCode.js
+// Requires: game.js
 
 capsule.input = (function() {
 	"use strict";
 
 	var i;
-	var keyState = [];
-	var mousePosition = new capsule.Vector();
+	var keyState          = [];
+	var mousePosition     = new capsule.Vector();
+	var fullscreenKeyCode = capsule.buttonCode.F11;
 
 	var keyDownHandler = function(e) {
-		keyState[e.which] = true;
+		var keyCode = e.which;
+		var game    = capsule.game;
+		var canvas;
+
+		keyState[keyCode] = true;
+
+		// Handle fullscreen requests.
+		if (keyCode === fullscreenKeyCode && game.isRunning) {
+			canvas = game.context.canvas;
+			if (game.isFullscreen) {
+				(
+					document.exitFullscreen       ||
+					document.mozCancelFullScreen  ||
+					document.webkitExitFullScreen ||
+					document.msExitFullscreen
+				).call(document);
+			}
+			else {
+				(
+					canvas.requestFullscreen       ||
+					canvas.mozRequestFullScreen    ||
+					canvas.webkitRequestFullscreen ||
+					canvas.msRequestFullscreen
+				).call(canvas);
+			}
+		}
 	};
 
 	var keyUpHandler = function(e) {
@@ -41,6 +69,12 @@ capsule.input = (function() {
 	return {
 		isButtonPressed: function(buttonCode) {
 			return keyState[buttonCode];
+		},
+		isButtonReleased: function(buttonCode) {
+			return !keyState[buttonCode];
+		},
+		getState: function() {
+			return keyState.slice(0);
 		},
 		getMousePosition: function() {
 			var position = mousePosition.clone();

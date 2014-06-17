@@ -11,7 +11,6 @@
 // Requires: capsule\Style.js
 // Requires: capsule\Vector.js
 // Requires: capsule\buttonCode.js
-// Requires: capsule\config.js
 // Requires: capsule\game.js
 // Requires: capsule\input.js
 // Requires: capsule\math.js
