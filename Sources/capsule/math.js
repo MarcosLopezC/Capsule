@@ -44,9 +44,7 @@ capsule.math = (function() {
 	};
 
 	math.isBetween = function(value, min, max) {
-		var lowerBound = Math.min(min, max);
-		var upperBound = Math.max(min, max);
-		return value >= lowerBound && value <= upperBound;
+		return value >= Math.min(min, max) && value <= Math.max(min, max);
 	};
 
 	math.normalize = function(value, min, max) {
