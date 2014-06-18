@@ -1,6 +1,22 @@
 QUnit.test("capsule.math", function(assert) {
 	assert.ok(capsule.math, "capsule.math is defined.");
-	assert.ok(typeof capsule.math === "object", "capsule.math is an object.")
+	assert.ok(typeof capsule.math === "object", "capsule.math is an object.");
+});
+
+QUnit.test("capsule.math constants", function(assert) {
+	[
+		"TAU",
+		"HALF_PI",
+		"ANGLE_RIGHT",
+		"ANGLE_DOWN",
+		"ANGLE_LEFT",
+		"ANGLE_UP"
+	].forEach(function(name) {
+		var originalValue = capsule.math[name];
+		capsule.math[name] = null;
+		assert.equal(capsule.math[name], originalValue,
+			"Constant property cannot be reassigned.");
+	});
 });
 
 QUnit.test("capsule.math.getModulus", function(assert) {
