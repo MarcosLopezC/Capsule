@@ -19,60 +19,60 @@ QUnit.test("capsule.math constants", function(assert) {
 	});
 });
 
-QUnit.test("capsule.math.getModulus", function(assert) {
-	var getModulus = capsule.math.getModulus;
+QUnit.test("capsule.math.modulus", function(assert) {
+	var modulus = capsule.math.modulus;
 
-	assert.equal(getModulus(10, 20),  10);
-	assert.equal(getModulus(10,  5),   0);
-	assert.equal(getModulus(5 ,  2),   1);
-	assert.equal(getModulus(-5,  2),   1);
-	assert.equal(getModulus(0 , 10),   0);
+	assert.equal(modulus(10, 20),  10);
+	assert.equal(modulus(10,  5),   0);
+	assert.equal(modulus(5 ,  2),   1);
+	assert.equal(modulus(-5,  2),   1);
+	assert.equal(modulus(0 , 10),   0);
 
-	assert.equal(isNaN(getModulus(5, 0)), true);
+	assert.equal(isNaN(modulus(5, 0)), true);
 });
 
-QUnit.test("capsule.math.getRandomAngle", function(assert) {
+QUnit.test("capsule.math.randomAngle", function(assert) {
 	var i;
 	var value;
-	var getRandomAngle = capsule.math.getRandomAngle;
-	var TAU = capsule.math.TAU;
+	var randomAngle = capsule.math.randomAngle;
+	var TAU         = capsule.math.TAU;
 
 	for (i = 0; i < 100; i += 1) {
-		value = getRandomAngle();
+		value = randomAngle();
 		assert.ok(value > 0 && value < TAU, value + " is in the expected range.");
 	}
 });
 
-QUnit.test("capsule.math.getRandomNumber", function(assert) {
+QUnit.test("capsule.math.randomNumber", function(assert) {
 	var i;
 	var value;
-	var getRandomNumber = capsule.math.getRandomNumber;
-	var isBetween       = capsule.math.isBetween;
+	var randomNumber = capsule.math.randomNumber;
+	var isBetween    = capsule.math.isBetween;
 
 	for (i = 0; i < 100; i += 1) {
-		value = getRandomNumber(0, i);
+		value = randomNumber(0, i);
 		assert.ok(isBetween(value, 0, i),
 			value + " is in the expected range. Min: 0, Max: " + i);
-		value = getRandomNumber(50 - i, i);
+		value = randomNumber(50 - i, i);
 		assert.ok(isBetween(value, 50 - i, i),
 			value + "is in the expected range. Min: " + (50 - i) + ", Max: " + i);
-		value = getRandomNumber(-i, 0);
+		value = randomNumber(-i, 0);
 		assert.ok(isBetween(value, -i, 0),
 			value + " is in the expected range. Min: " + -i + ", Max: 0");
 	}
 });
 
-QUnit.test("capsule.math.getRandomInteger", function(assert) {
+QUnit.test("capsule.math.randomInteger", function(assert) {
 	var i;
 	var value;
-	var getRandomInteger = capsule.math.getRandomInteger;
-	var isBetween        = capsule.math.isBetween;
+	var randomInteger = capsule.math.randomInteger;
+	var isBetween     = capsule.math.isBetween;
 
 	for (i = 0; i < 100; i += 1) {
-		value = getRandomInteger(0, i);
+		value = randomInteger(0, i);
 		assert.equal(value, Math.floor(value), value + " is an integer.");
 		assert.ok(isBetween(value, 0, i), value + " is in the expected range. Min: 0, Max: " + i);
-		value = getRandomInteger(-i, 0);
+		value = randomInteger(-i, 0);
 		assert.ok(isBetween(value, -i, 0), value + " is in the expected range. Min: " + (-i) + " Max: 0");
 	}
 });
@@ -103,8 +103,8 @@ QUnit.test("capsule.math.normalize", function(assert) {
 	assert.equal(normalize(200, 0, 100),  2.00);
 });
 
-QUnit.test("capsule.math.getLinearInterpolation", function(assert) {
-	var lerp = capsule.math.getLinearInterpolation;
+QUnit.test("capsule.math.linearInterpolation", function(assert) {
+	var lerp = capsule.math.linearInterpolation;
 	assert.equal(lerp( 0.50,   0, 100),  50);
 	assert.equal(lerp( 0.25,   0, 100),  25);
 	assert.equal(lerp( 0.10,   0, 100),  10);
