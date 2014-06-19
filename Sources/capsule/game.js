@@ -7,6 +7,9 @@ capsule.game = (function() {
 
 	var game = Object.create(null);
 
+	var MAX_LATENCY = 100;
+
+	var startHandler  = null;
 	var drawHandler   = null;
 	var updateHandler = null;
 	var resizeHandler = null;
@@ -25,6 +28,25 @@ capsule.game = (function() {
 			}
 		);
 	}());
+
+	var drawEvent = function() {
+		if (isRunning) {
+			drawHandler(context);
+			requestAnimationFrame(drawEvent);
+		}
+	};
+
+	var updateEvent = function() {
+		if (isRunning) {
+			updateHandler(elapsedTimer.elapsed, totalTimer.elapsed);
+			elapsedTimer.reset();
+			window.setTimeout(updateEvent, 5);
+		}
+	};
+
+	var resizeEvent = function() {
+		resizeHandler(game.windowSize);
+	};
 
 	game.run = function() {
 		if (isRunning) {
@@ -45,30 +67,21 @@ capsule.game = (function() {
 		elapsedTimer.restart();
 		totalTimer.start();
 
+		if (typeof startHandler === "function") {
+			startHandler(game);
+		}
+
 		if (typeof resizeHandler === "function") {
-			window.addEventListener("resize", resizeHandler);
-			resizeHandler();
+			resizeEvent();
+			window.addEventListener("resize", resizeEvent);
 		}
 
 		if (typeof updateHandler === "function") {
-			var updateLoop = function() {
-				if (isRunning) {
-					updateHandler(elapsedTimer.elapsed, totalTimer.elapsed);
-					elapsedTimer.reset();
-					window.setTimeout(updateLoop, 5);
-				}
-			};
-			updateLoop();
+			updateEvent();
 		}
 
 		if (typeof drawHandler === "function") {
-			var drawLoop = function() {
-				if (isRunning) {
-					drawHandler(context);
-					requestAnimationFrame(drawLoop);
-				}
-			};
-			drawLoop();
+			drawEvent();
 		}
 	};
 
@@ -77,7 +90,7 @@ capsule.game = (function() {
 			throw new Error("Game cannot be stopped because is not running.");
 		}
 
-		window.removeEventListener("resize", resizeHandler);
+		window.removeEventListener("resize", resizeEvent);
 
 		elapsedTimer.stop();
 		totalTimer.stop();
@@ -87,6 +100,17 @@ capsule.game = (function() {
 	};
 
 	capsule.utilities.defineAccessorProperties(game, {
+		onStart: {
+			get: function() {
+				return startHandler;
+			},
+			set: function(value) {
+				if (isRunning) {
+					throw new Error("onStart cannot be changed while the game is running.");
+				}
+				startHandler = value;
+			}
+		},
 		onDraw: {
 			get: function() {
 				return drawHandler;
@@ -130,6 +154,23 @@ capsule.game = (function() {
 				return context;
 			}
 		},
+		elapsedTime: {
+			get: function() {
+				return Math.min(elapsedTimer.elapsed, MAX_LATENCY);
+			}
+		},
+		totalTime: {
+			get: function() {
+				return totalTimer.elapsed;
+			}
+		},
+		isRunningSlowly: {
+			get: function() {
+				if (isRunning) {
+					return elapsedTimer.elapsed > MAX_LATENCY;
+				}
+			}
+		},
 		isFullscreen: {
 			get: function() {
 				return !!(
@@ -148,6 +189,8 @@ capsule.game = (function() {
 			}
 		}
 	});
+
+	capsule.utilities.applyDataDescriptor(game);
 
 	return game;
 }());
