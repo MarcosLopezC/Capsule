@@ -99,6 +99,8 @@ capsule.game = (function() {
 		isRunning = false;
 	};
 
+	capsule.utilities.applyDataDescriptor(game);
+
 	capsule.utilities.defineAccessorProperties(game, {
 		onStart: {
 			get: function() {
@@ -189,8 +191,6 @@ capsule.game = (function() {
 			}
 		}
 	});
-
-	capsule.utilities.applyDataDescriptor(game);
 
 	return game;
 }());
