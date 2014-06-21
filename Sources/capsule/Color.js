@@ -5,12 +5,22 @@
 capsule.Color = (function() {
 	"use strict";
 
+	var round     = Math.round;
+	var constrain = capsule.math.constrain;
+
 	var Color = function(red, green, blue, alpha) {
-		this._red   = red   || 0;
-		this._green = green || 0;
-		this._blue  = blue  || 0;
-		this._alpha = alpha || 255;
+		this._red   = 0;
+		this._green = 0;
+		this._blue  = 0;
+		this._alpha = 0;
+
+		this.red   = typeof red   === "number" ? red   : 0;
+		this.green = typeof green === "number" ? green : 0;
+		this.blue  = typeof blue  === "number" ? blue  : 0;
+		this.alpha = typeof alpha === "number" ? alpha : 1;
+
 		this._cache = null;
+
 		capsule.utilities.applyDataDescriptor(this);
 	};
 
@@ -24,7 +34,7 @@ capsule.Color = (function() {
 				return this._red;
 			},
 			set: function(value) {
-				this._red = value;
+				this._red = constrain(round(value), 0, 255);
 				invalidate(this);
 			}
 		},
@@ -33,7 +43,7 @@ capsule.Color = (function() {
 				return this._green;
 			},
 			set: function(value) {
-				this._green = value;
+				this._green = constrain(round(value), 0, 255);
 				invalidate(this);
 			}
 		},
@@ -42,7 +52,7 @@ capsule.Color = (function() {
 				return this._blue;
 			},
 			set: function(value) {
-				this._blue = value;
+				this._blue = constrain(round(value), 0, 255);
 				invalidate(this);
 			}
 		},
@@ -51,7 +61,7 @@ capsule.Color = (function() {
 				return this._alpha;
 			},
 			set: function(value) {
-				this._alpha = value;
+				this._alpha = constrain(value.toFixed(2), 0, 1);
 				invalidate(this);
 			}
 		}
@@ -61,16 +71,12 @@ capsule.Color = (function() {
 		return new Color(this.red, this.green, this.blue, this.alpha);
 	};
 
-	var formatColor = function(value) {
-		return capsule.math.constrain(Math.round(value), 0, 255).toString();
-	};
-
 	Color.prototype.toString = function() {
 		if (this._cache === null) {
-			var red   = formatColor(this.red);
-			var green = formatColor(this.green);
-			var blue  = formatColor(this.blue);
-			var alpha = formatColor(this.alpha);
+			var red   = this._red.toString(10);
+			var green = this._green.toString(10);
+			var blue  = this._blue.toString(10);
+			var alpha = this._alpha.toString(10);
 			this._cache = String.concat("rgba(", red, ", ", green, ", ", blue, ", ", alpha, ")");
 		}
 
