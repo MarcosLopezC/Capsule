@@ -4,9 +4,15 @@
 capsule.Vector = (function() {
 	"use strict";
 
+	var sqrt  = Math.sqrt;
+	var sin   = Math.sin;
+	var cos   = Math.cos;
+	var acos  = Math.acos;
+	var atan2 = Math.atan2;
+
 	var Vector = function(x, y) {
-		this.x = x || 0;
-		this.y = y || 0;
+		this.x = typeof x === "number" ? x : 0;
+		this.y = typeof y === "number" ? y : 0;
 	};
 
 	capsule.utilities.defineAccessorProperties(Vector.prototype, {
@@ -17,7 +23,7 @@ capsule.Vector = (function() {
 		},
 		length: {
 			get: function() {
-				return Math.sqrt(this.length2);
+				return sqrt(this.length2);
 			},
 			set: function(value) {
 				this.setPolar(null, value);
@@ -25,7 +31,7 @@ capsule.Vector = (function() {
 		},
 		angle: {
 			get: function() {
-				return Math.atan2(this.y, this.x);
+				return atan2(this.y, this.x);
 			},
 			set: function(value) {
 				return this.setPolar(value, null);
@@ -40,7 +46,7 @@ capsule.Vector = (function() {
 	};
 
 	Vector.prototype.getDistanceTo = function(vector) {
-		return Math.sqrt(this.getDistanceTo2(vector));
+		return sqrt(this.getDistanceTo2(vector));
 	};
 
 	Vector.prototype.setPolar = function(angle, length) {
@@ -50,14 +56,32 @@ capsule.Vector = (function() {
 		if (length === null) {
 			length = this.length;
 		}
-		this.x = length * Math.cos(angle);
-		this.y = length * Math.sin(angle);
+		this.x = length * cos(angle);
+		this.y = length * sin(angle);
 		return this;
 	};
 
 	Vector.prototype.add = function(vector) {
 		this.x += vector.x;
 		this.y += vector.y;
+		return this;
+	};
+
+	Vector.prototype.subtract = function(vector) {
+		this.x -= vector.x;
+		this.y -= vector.y;
+		return this;
+	};
+
+	Vector.prototype.multiply = function(vector) {
+		this.x *= vector.x;
+		this.y *= vector.y;
+		return this;
+	};
+
+	Vector.prototype.divide = function(vector) {
+		this.x /= vector.x;
+		this.y /= vector.y;
 		return this;
 	};
 
@@ -76,8 +100,8 @@ capsule.Vector = (function() {
 	};
 
 	Vector.prototype.getAngleBetween = function(vector) {
-		var lengthProduct = this.getLength() * vector.getLength();
-		return Math.acos(this.dot(vector) / lengthProduct);
+		var lengthProduct = this.length * vector.length;
+		return acos(this.dot(vector) / lengthProduct);
 	};
 
 	Vector.prototype.normalize = function() {
