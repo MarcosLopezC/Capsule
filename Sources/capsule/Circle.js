@@ -6,6 +6,7 @@
 capsule.Circle = (function() {
 	"use strict";
 
+	// Aliases
 	var TAU    = capsule.math.TAU;
 	var Vector = capsule.Vector;
 	var Style  = capsule.Style;

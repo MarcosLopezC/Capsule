@@ -6,10 +6,16 @@
 capsule.Rectangle = (function() {
 	"use strict";
 
+	// Aliases
+	var Vector = capsule.Vector;
+	var Size   = capsule.Size;
+	var Style  = capsule.Style;
+	var game   = capsule.game;
+
 	var Rectangle = function(position, size, style) {
-		this.position = position || new capsule.Vector();
-		this.size     = size     || new capsule.Size();
-		this.style    = style    || new capsule.Style();
+		this.position = position || new Vector();
+		this.size     = size     || new Size();
+		this.style    = style    || new Style();
 	};
 
 	var getMin = function(rectangle) {
@@ -19,7 +25,7 @@ capsule.Rectangle = (function() {
 	var getMax = function(rectangle) {
 		var position = rectangle.position;
 		var size     = rectangle.size;
-		return new capsule.Vector(position.x + size.width, position.y + size.height);
+		return new Vector(position.x + size.width, position.y + size.height);
 	};
 
 	Rectangle.prototype.clone = function() {
@@ -47,7 +53,7 @@ capsule.Rectangle = (function() {
 	};
 
 	Rectangle.prototype.draw = function(context) {
-		context = context || capsule.game.context;
+		context = context || game.context;
 
 		var position = this.position;
 		var size     = this.size;

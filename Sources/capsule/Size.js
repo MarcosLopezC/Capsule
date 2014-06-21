@@ -4,6 +4,10 @@
 capsule.Size = (function() {
 	"use strict";
 
+	// Aliases
+	var max   = Math.max;
+	var floor = Math.floor;
+
 	var Size = function(width, height) {
 		this._width  = width  || 0;
 		this._height = height || 0;
@@ -17,7 +21,7 @@ capsule.Size = (function() {
 				return this._width;
 			},
 			set: function(value) {
-				this._width = Math.max(0, value);
+				this._width = max(0, value);
 			}
 		},
 		height: {
@@ -25,7 +29,7 @@ capsule.Size = (function() {
 				return this._height;
 			},
 			set: function(value) {
-				this._height = Math.max(0, value);
+				this._height = max(0, value);
 			}
 		},
 		isEmpty: {
@@ -40,8 +44,8 @@ capsule.Size = (function() {
 	};
 
 	Size.prototype.truncate = function() {
-		this.width  = Math.floor(this.width);
-		this.height = Math.floor(this.height);
+		this.width  = floor(this.width);
+		this.height = floor(this.height);
 		return this;
 	};
 

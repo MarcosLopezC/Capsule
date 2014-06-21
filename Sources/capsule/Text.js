@@ -7,15 +7,21 @@
 capsule.Text = (function() {
 	"use strict";
 
+	// Aliases
+	var Font   = capsule.Font;
+	var Style  = capsule.Style;
+	var Vector = capsule.Vector;
+	var game   = capsule.game;
+
 	var Text = function(value, font, style) {
 		this.value    = value || "";
-		this.font     = font  || new capsule.Font();
-		this.style    = style || new capsule.Style();
-		this.position = new capsule.Vector();
+		this.font     = font  || new Font();
+		this.style    = style || new Style();
+		this.position = new Vector();
 	};
 
 	Text.prototype.draw = function(context) {
-		context = context || capsule.game.context;
+		context = context || game.context;
 
 		var value    = this.value;
 		var font     = this.font;

@@ -5,6 +5,7 @@
 capsule.Color = (function() {
 	"use strict";
 
+	// Aliases
 	var round     = Math.round;
 	var constrain = capsule.math.constrain;
 

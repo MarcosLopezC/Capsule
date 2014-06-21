@@ -5,18 +5,23 @@
 capsule.game = (function() {
 	"use strict";
 
-	var game = Object.create(null);
+	// Aliases
+	var Size      = capsule.Size;
+	var Stopwatch = capsule.Stopwatch;
+	var min       = Math.min;
 
+	// Constants
 	var MAX_LATENCY = 100;
 
+	// Private state
 	var startHandler  = null;
 	var drawHandler   = null;
 	var updateHandler = null;
 	var resizeHandler = null;
 	var isRunning     = false;
 	var context       = null;
-	var elapsedTimer  = new capsule.Stopwatch();
-	var totalTimer    = new capsule.Stopwatch();
+	var elapsedTimer  = new Stopwatch();
+	var totalTimer    = new Stopwatch();
 
 	var requestAnimationFrame = (function() {
 		return (
@@ -26,6 +31,15 @@ capsule.game = (function() {
 			function(callback) {
 				window.setTimeout(callback, 1000 / 60);
 			}
+		);
+	}());
+
+	var fullscreenElement = (function() {
+		return (
+			document.fullscreenElement       ||
+			document.mozFullScreenElement    ||
+			document.webkitFullscreenElement ||
+			document.msFullscreenElement
 		);
 	}());
 
@@ -47,6 +61,8 @@ capsule.game = (function() {
 	var resizeEvent = function() {
 		resizeHandler(game.windowSize);
 	};
+
+	var game = Object.create(null);
 
 	game.run = function() {
 		if (isRunning) {
@@ -158,7 +174,7 @@ capsule.game = (function() {
 		},
 		elapsedTime: {
 			get: function() {
-				return Math.min(elapsedTimer.elapsed, MAX_LATENCY);
+				return min(elapsedTimer.elapsed, MAX_LATENCY);
 			}
 		},
 		totalTime: {
@@ -175,18 +191,13 @@ capsule.game = (function() {
 		},
 		isFullscreen: {
 			get: function() {
-				return !!(
-					document.fullscreenElement       ||
-					document.mozFullScreenElement    ||
-					document.webkitFullscreenElement ||
-					document.msFullscreenElement
-				);
+				return !!(fullscreenElement);
 			}
 		},
 		windowSize: {
 			get: function() {
 				if (isRunning) {
-					return new capsule.Size(window.innerWidth, window.innerHeight);
+					return new Size(window.innerWidth, window.innerHeight);
 				}
 			}
 		}

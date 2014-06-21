@@ -6,14 +6,16 @@
 capsule.input = (function() {
 	"use strict";
 
+	var fullscreenKeyCode = capsule.buttonCode.F11;
+	var game              = capsule.game;
+	var Vector            = capsule.Vector;
+
 	var i;
 	var keyState          = [];
-	var mousePosition     = new capsule.Vector();
-	var fullscreenKeyCode = capsule.buttonCode.F11;
+	var mousePosition     = new Vector();
 
 	var keyDownHandler = function(e) {
 		var keyCode = e.which;
-		var game    = capsule.game;
 		var canvas;
 
 		keyState[keyCode] = true;
@@ -78,8 +80,8 @@ capsule.input = (function() {
 		},
 		getMousePosition: function() {
 			var position = mousePosition.clone();
-			if (capsule.game.context) {
-				var element = capsule.game.context.canvas;
+			if (game.context) {
+				var element = game.context.canvas;
 				position.x -= element.offsetLeft;
 				position.y -= element.offsetTop;
 			}

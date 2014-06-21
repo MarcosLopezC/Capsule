@@ -4,6 +4,7 @@
 capsule.Vector = (function() {
 	"use strict";
 
+	// Aliases
 	var sqrt  = Math.sqrt;
 	var sin   = Math.sin;
 	var cos   = Math.cos;
@@ -50,11 +51,16 @@ capsule.Vector = (function() {
 	};
 
 	Vector.prototype.setPolar = function(angle, length) {
-		if (angle === null) {
-			angle = this.angle;
+		if (angle === null && length === null) {
+			return this;
 		}
-		if (length === null) {
-			length = this.length;
+		else {
+			if (angle === null) {
+				angle = this.angle;
+			}
+			if (length === null) {
+				length = this.length;
+			}
 		}
 		this.x = length * cos(angle);
 		this.y = length * sin(angle);

@@ -4,6 +4,9 @@
 capsule.Stopwatch = (function() {
 	"use strict";
 
+	// Aliases
+	var now = Date.now;
+
 	var Stopwatch = function() {
 		this._startTime = 0;
 		this._elapsed   = 0;
@@ -16,7 +19,7 @@ capsule.Stopwatch = (function() {
 		elapsed: {
 			get: function() {
 				if (this._isRunning) {
-					return this._elapsed + (Date.now() - this._startTime);
+					return this._elapsed + (now() - this._startTime);
 				}
 				else {
 					return this._elapsed;
@@ -32,7 +35,7 @@ capsule.Stopwatch = (function() {
 
 	Stopwatch.prototype.start = function() {
 		if (!this._isRunning) {
-			this._startTime = Date.now();
+			this._startTime = now();
 			this._isRunning = true;
 		}
 		return this;
@@ -40,7 +43,7 @@ capsule.Stopwatch = (function() {
 
 	Stopwatch.prototype.stop = function() {
 		if (this._isRunning) {
-			this._elapsed += Date.now() - this._startTime;
+			this._elapsed += now() - this._startTime;
 			this._isRunning = false;
 		}
 		return this;
@@ -48,7 +51,7 @@ capsule.Stopwatch = (function() {
 
 	Stopwatch.prototype.reset = function() {
 		if (this._isRunning) {
-			this._startTime = Date.now();
+			this._startTime = now();
 		}
 		this._elapsed = 0;
 		return this;

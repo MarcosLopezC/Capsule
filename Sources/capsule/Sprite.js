@@ -5,9 +5,12 @@
 capsule.Sprite = (function() {
 	"use strict";
 
+	// Aliases
+	var Vector = capsule.Vector;
+
 	var Sprite = function(path, origin) {
-		this.origin   = origin || new capsule.Vector();
-		this.position = new capsule.Vector();
+		this.origin   = origin || new Vector();
+		this.position = new Vector();
 		this.rotation = 0;
 		this.scale    = 1;
 
