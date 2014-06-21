@@ -1,9 +1,11 @@
-QUnit.test("capsule.math", function(assert) {
+QUnit.module("capsule.math");
+
+QUnit.test("Checking if it's defined", function(assert) {
 	assert.ok(capsule.math, "capsule.math is defined.");
-	assert.ok(typeof capsule.math === "object", "capsule.math is an object.");
+	assert.equal(typeof capsule.math, "object", "capsule.math is an object.");
 });
 
-QUnit.test("capsule.math constants", function(assert) {
+QUnit.test("Checking constant properties", function(assert) {
 	[
 		"TAU",
 		"HALF_PI",
@@ -19,7 +21,7 @@ QUnit.test("capsule.math constants", function(assert) {
 	});
 });
 
-QUnit.test("capsule.math.modulus", function(assert) {
+QUnit.test("modulus", function(assert) {
 	var modulus = capsule.math.modulus;
 
 	assert.equal(modulus(10, 20),  10);
@@ -31,7 +33,7 @@ QUnit.test("capsule.math.modulus", function(assert) {
 	assert.equal(isNaN(modulus(5, 0)), true);
 });
 
-QUnit.test("capsule.math.randomAngle", function(assert) {
+QUnit.test("randomAngle", function(assert) {
 	var i;
 	var value;
 	var randomAngle = capsule.math.randomAngle;
@@ -43,7 +45,7 @@ QUnit.test("capsule.math.randomAngle", function(assert) {
 	}
 });
 
-QUnit.test("capsule.math.randomNumber", function(assert) {
+QUnit.test("randomNumber", function(assert) {
 	var i;
 	var value;
 	var randomNumber = capsule.math.randomNumber;
@@ -62,7 +64,7 @@ QUnit.test("capsule.math.randomNumber", function(assert) {
 	}
 });
 
-QUnit.test("capsule.math.randomInteger", function(assert) {
+QUnit.test("randomInteger", function(assert) {
 	var i;
 	var value;
 	var randomInteger = capsule.math.randomInteger;
@@ -77,14 +79,14 @@ QUnit.test("capsule.math.randomInteger", function(assert) {
 	}
 });
 
-QUnit.test("capsule.math.constrain", function(assert) {
+QUnit.test("constrain", function(assert) {
 	var constrain = capsule.math.constrain;
 	assert.equal(constrain( 50, 0, 100),  50);
 	assert.equal(constrain(-50, 0, 100),   0);
 	assert.equal(constrain(200, 0, 100), 100);
 });
 
-QUnit.test("capsule.math.isBetween", function(assert) {
+QUnit.test("isBetween", function(assert) {
 	var isBetween = capsule.math.isBetween;
 	assert.equal(isBetween( 50, 0, 100),  true);
 	assert.equal(isBetween(-50, 0, 100), false);
@@ -93,7 +95,7 @@ QUnit.test("capsule.math.isBetween", function(assert) {
 	assert.equal(isBetween(100, 0, 100),  true);
 });
 
-QUnit.test("capsule.math.normalize", function(assert) {
+QUnit.test("normalize", function(assert) {
 	var normalize = capsule.math.normalize;
 	assert.equal(normalize( 50, 0, 100),  0.50);
 	assert.equal(normalize( 25, 0, 100),  0.25);
@@ -103,7 +105,7 @@ QUnit.test("capsule.math.normalize", function(assert) {
 	assert.equal(normalize(200, 0, 100),  2.00);
 });
 
-QUnit.test("capsule.math.linearInterpolation", function(assert) {
+QUnit.test("linearInterpolation", function(assert) {
 	var lerp = capsule.math.linearInterpolation;
 	assert.equal(lerp( 0.50,   0, 100),  50);
 	assert.equal(lerp( 0.25,   0, 100),  25);
@@ -114,14 +116,14 @@ QUnit.test("capsule.math.linearInterpolation", function(assert) {
 	assert.equal(lerp( 2.00,   0, 100), 200);
 });
 
-QUnit.test("capsule.math.map", function(assert) {
+QUnit.test("map", function(assert) {
 	var map = capsule.math.map;
 	assert.equal(map(50,    0, 100,   0, 10), 5.0);
 	assert.equal(map(50,    0, 100, -10, 10), 0.0);
 	assert.equal(map(50, -100, 100,   0, 10), 7.5);
 });
 
-QUnit.test("capsule.math.toDegrees", function(assert) {
+QUnit.test("toDegrees", function(assert) {
 	var toDegrees = capsule.math.toDegrees;
 	var TAU = capsule.math.TAU;
 	assert.equal(toDegrees(Math.PI / 2), 90);
@@ -129,7 +131,7 @@ QUnit.test("capsule.math.toDegrees", function(assert) {
 	assert.equal(toDegrees(TAU), 360);
 });
 
-QUnit.test("capsule.math.toRadians", function(assert) {
+QUnit.test("toRadians", function(assert) {
 	var toRadians = capsule.math.toRadians;
 	var TAU = capsule.math.TAU;
 	assert.equal(toRadians(90), Math.PI / 2);
