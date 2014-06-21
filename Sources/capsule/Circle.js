@@ -6,10 +6,16 @@
 capsule.Circle = (function() {
 	"use strict";
 
+	var TAU    = capsule.math.TAU;
+	var Vector = capsule.Vector;
+	var Style  = capsule.Style;
+	var game   = capsule.game;
+
 	var Circle = function(position, radius, style) {
-		this.position = position || new capsule.Vector();
-		this.radius   = radius   || 1;
-		this.style    = style    || new capsule.Style();
+		this.position = position || new Vector();
+		this.style    = style    || new Style();
+
+		this.radius   = typeof radius === "number" ? radius : 1;
 	};
 
 	Circle.prototype.clone = function() {
@@ -17,22 +23,22 @@ capsule.Circle = (function() {
 	};
 
 	Circle.prototype.collidesWith = function(circle) {
-		var distance2 = capsule.Vector.getDistanceBetween2(this.position, circle.position);
-		var radiusSum = this.radius + circle.radius;
+		var distance2  = this.position.getDistanceTo2(circle.position);
+		var radiusSum  = this.radius + circle.radius;
 		var radiusSum2 = radiusSum * radiusSum;
 		return distance2 < radiusSum2;
 	};
 
 	Circle.prototype.isInsideOf = function(circle) {
 		// Formula: distance + circle.radius < this.radius
-		var radiusDifference = this.radius - circle.radius;
+		var radiusDifference  = this.radius - circle.radius;
 		var radiusDifference2 = radiusDifference * radiusDifference;
-		var distance2 = capsule.Vector.getDistanceBetween2(this.position, circle.position);
+		var distance2         = this.position.getDistanceTo2(circle.position);
 		return distance2 < radiusDifference2;
 	};
 
 	Circle.prototype.draw = function(context) {
-		context = context || capsule.game.context;
+		context = context || game.context;
 
 		var position = this.position;
 		var radius   = this.radius;
@@ -43,7 +49,7 @@ capsule.Circle = (function() {
 		style.apply(context);
 
 		context.beginPath();
-		context.arc(position.x, position.y, radius, 0, capsule.math.TAU);
+		context.arc(position.x, position.y, radius, 0, TAU);
 		context.fill();
 
 		if (style.strokeThickness > 0) {
