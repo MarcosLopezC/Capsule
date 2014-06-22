@@ -45,16 +45,16 @@ capsule.game = (function() {
 
 	var drawEvent = function() {
 		if (isRunning) {
-			drawHandler(context);
 			requestAnimationFrame(drawEvent);
+			drawHandler(context);
 		}
 	};
 
 	var updateEvent = function() {
 		if (isRunning) {
+			window.setTimeout(updateEvent, 8);
 			updateHandler(elapsedTimer.elapsed, totalTimer.elapsed);
 			elapsedTimer.reset();
-			window.setTimeout(updateEvent, 5);
 		}
 	};
 
