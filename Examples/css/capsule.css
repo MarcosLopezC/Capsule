@@ -11,9 +11,14 @@ body {
 }
 
 #capsule {
+	display: block;
 	background-color: #fff;
 	border: 1px solid #999;
-	display: block;
-	margin: 20px auto;
-	padding: 0;
+
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
