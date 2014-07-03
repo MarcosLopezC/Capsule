@@ -24,9 +24,14 @@ capsule.Style = (function() {
 	};
 
 	Style.prototype.apply = function(context) {
+		var strokeThickness = this.strokeThickness;
+
+		if (strokeThickness > 0) {
+			context.lineWidth   = strokeThickness;
+			context.strokeStyle = this.strokeColor.toString();
+		}
+
 		context.fillStyle   = this.fillColor.toString();
-		context.strokeStyle = this.strokeColor.toString();
-		context.lineWidth   = this.strokeThickness;
 
 		return this;
 	};

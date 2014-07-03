@@ -4,9 +4,13 @@
 capsule.List = (function() {
 	"use strict";
 
+	// Aliases
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
+
 	var List = function() {
 		this._items = [];
-		capsule.utilities.applyDataDescriptor(this);
+
+		applyDataDescriptor(this);
 	};
 
 	capsule.utilities.defineAccessorProperties(List.prototype, {

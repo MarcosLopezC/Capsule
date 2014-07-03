@@ -4,6 +4,9 @@
 capsule.Font = (function() {
 	"use strict";
 
+	// Aliases
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
+
 	var Font = function() {
 		this._bold        = false;
 		this._italic      = false;
@@ -11,7 +14,7 @@ capsule.Font = (function() {
 		this._family      = "serif";
 		this._cssProperty = null;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	var invalidate = function(font) {

@@ -5,14 +5,15 @@ capsule.Stopwatch = (function() {
 	"use strict";
 
 	// Aliases
-	var now = Date.now;
+	var now                 = Date.now;
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
 
 	var Stopwatch = function() {
 		this._startTime = 0;
 		this._elapsed   = 0;
 		this._isRunning = false;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	capsule.utilities.defineAccessorProperties(Stopwatch.prototype, {

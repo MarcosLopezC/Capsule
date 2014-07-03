@@ -6,8 +6,9 @@ capsule.Color = (function() {
 	"use strict";
 
 	// Aliases
-	var round     = Math.round;
-	var constrain = capsule.math.constrain;
+	var round               = Math.round;
+	var constrain           = capsule.math.constrain;
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
 
 	var Color = function(red, green, blue, alpha) {
 		this._red   = 0;
@@ -22,7 +23,7 @@ capsule.Color = (function() {
 
 		this._cache = null;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	var invalidate = function(color) {

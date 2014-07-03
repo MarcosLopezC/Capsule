@@ -1,4 +1,5 @@
 // Requires: capsule.js
+// Requires: utilities.js
 // Requires: Vector.js
 // Requires: Size.js
 // Requires: Style.js
@@ -7,25 +8,42 @@ capsule.Rectangle = (function() {
 	"use strict";
 
 	// Aliases
-	var Vector = capsule.Vector;
-	var Size   = capsule.Size;
-	var Style  = capsule.Style;
-	var game   = capsule.game;
+	var Vector              = capsule.Vector;
+	var Size                = capsule.Size;
+	var Style               = capsule.Style;
+	var game                = capsule.game;
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
 
 	var Rectangle = function(position, size, style) {
 		this.position = position || new Vector();
 		this.size     = size     || new Size();
 		this.style    = style    || new Style();
+
+		this._min = new Vector();
+		this._max = new Vector();
+
+		applyDataDescriptor(this);
 	};
 
 	var getMin = function(rectangle) {
-		return rectangle.position.clone();
+		var min      = rectangle._min;
+		var position = rectangle.position;
+
+		min.x = position.x;
+		min.y = position.y;
+
+		return min;
 	};
 
 	var getMax = function(rectangle) {
+		var max      = rectangle._max;
 		var position = rectangle.position;
 		var size     = rectangle.size;
-		return new Vector(position.x + size.width, position.y + size.height);
+
+		max.x = position.x + size.width;
+		max.y = position.y + size.height;
+
+		return max;
 	};
 
 	Rectangle.prototype.clone = function() {
@@ -66,7 +84,12 @@ capsule.Rectangle = (function() {
 		context.fillRect(position.x, position.y, size.width, size.height);
 
 		if (style.strokeThickness > 0) {
-			context.strokeRect(position.x, position.y, size.width, size.height);
+			context.strokeRect(
+				position.x  | 0,
+				position.y  | 0,
+				size.width  | 0,
+				size.height | 0
+			);
 		}
 
 		context.restore();

@@ -4,6 +4,9 @@
 capsule.Music = (function() {
 	"use strict";
 
+	// Aliases
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
+
 	var Music = function(path) {
 		var audio = new Audio();
 		audio.preload = "auto";
@@ -11,7 +14,7 @@ capsule.Music = (function() {
 		audio.loop  = true;
 		this._audio = audio;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	Music.prototype.play = function() {

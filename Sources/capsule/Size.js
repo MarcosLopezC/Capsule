@@ -5,14 +5,15 @@ capsule.Size = (function() {
 	"use strict";
 
 	// Aliases
-	var max   = Math.max;
-	var floor = Math.floor;
+	var max                 = Math.max;
+	var floor               = Math.floor;
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
 
 	var Size = function(width, height) {
 		this._width  = width  || 0;
 		this._height = height || 0;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	capsule.utilities.defineAccessorProperties(Size.prototype, {

@@ -4,9 +4,13 @@
 capsule.Stack = (function() {
 	"use strict";
 
+	// Aliases
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
+
 	var Stack = function() {
 		this._items = [];
-		capsule.utilities.applyDataDescriptor(this);
+
+		applyDataDescriptor(this);
 	};
 
 	capsule.utilities.defineAccessorProperties(Stack.prototype, {

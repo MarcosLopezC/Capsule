@@ -6,7 +6,8 @@ capsule.Sprite = (function() {
 	"use strict";
 
 	// Aliases
-	var Vector = capsule.Vector;
+	var Vector              = capsule.Vector;
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
 
 	var Sprite = function(path, origin) {
 		this.origin   = origin || new Vector();
@@ -25,7 +26,7 @@ capsule.Sprite = (function() {
 		image.src = path;
 		this._image = image;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	capsule.utilities.defineAccessorProperties(Sprite.prototype, {

@@ -4,6 +4,9 @@
 capsule.Sound = (function() {
 	"use strict";
 
+	// Aliases
+	var applyDataDescriptor = capsule.utilities.applyDataDescriptor;
+
 	var Sound = function(path, voices) {
 		var audio      = null;
 		var audioArray = [];
@@ -18,7 +21,7 @@ capsule.Sound = (function() {
 		this._audioArray = audioArray;
 		this._index      = 0;
 
-		capsule.utilities.applyDataDescriptor(this);
+		applyDataDescriptor(this);
 	};
 
 	var advanceIndex = function(self) {

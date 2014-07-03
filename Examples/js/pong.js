@@ -24,23 +24,26 @@ capsule.game.onStart = function(game) {
 	background.size.height = canvas.height;
 
 	background.style.strokeThickness = 0;
-	background.style.fillColor = new capsule.Color(255, 255, 255, 1);
+	background.style.fillColor       = new capsule.Color(255, 255, 255, 1);
 
 	ball.size     = new capsule.Size(20, 20);
 	ball.position = new capsule.Vector(10, 10);
 	ball.velocity = new capsule.Vector(0.2, 0.2);
 
-	ball.style.fillColor = new capsule.Color(100, 200, 100);
+	ball.style.fillColor       = new capsule.Color(100, 200, 100);
+	ball.style.strokeThickness = 0;
 
 	player.size     = new capsule.Size(20, 100);
 	player.position = new capsule.Vector(spacing, 0);
 
-	player.style.fillColor = new capsule.Color(200, 100, 200);
+	player.style.fillColor       = new capsule.Color(200, 100, 200);
+	player.style.strokeThickness = 0;
 
 	computer.size     = player.size;
 	computer.position = new capsule.Vector(canvas.width - computer.size.width - spacing, 0);
 
-	computer.style.fillColor = new capsule.Color(200, 50, 0);
+	computer.style.fillColor       = new capsule.Color(200, 50, 0);
+	computer.style.strokeThickness = 0;
 };
 
 // Draw the state of the game.
