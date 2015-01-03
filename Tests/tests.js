@@ -1,3 +1,5 @@
+QUnit.module("capsule");
+
 QUnit.test("capsule", function(assert) {
-	assert.ok(typeof capsule === "object", "capsule object is defined.");
+	assert.equal(typeof capsule, "object", "capsule object is defined.");
 });
