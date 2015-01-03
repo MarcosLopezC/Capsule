@@ -5,4 +5,5 @@
 "use strict";
 
 window.capsule = {
+	math: require("./math.js")
 };
