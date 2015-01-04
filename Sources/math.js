@@ -17,16 +17,12 @@ exports.modulus = function(dividend, divisor) {
 
 // Returns a value indicating whether the given value is between a and b.
 exports.isBetween = function(value, a, b) {
-	var min, max;
 	if (a > b) {
-		max = a;
-		min = b;
+		return value >= b && value <= a;
 	}
 	else {
-		min = a;
-		max = b;
+		return value >= a && value <= b;
 	}
-	return value >= min && value <= max;
 };
 
 // Returns the given value constrained to the range [min, max].
