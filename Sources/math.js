@@ -39,16 +39,20 @@ exports.normalize = function(value, min, max) {
 	return (value - min) / (max - min);
 };
 
+var normalize = exports.normalize;
+
 // Returns the linear interpolation of the given normalized value over the range [min, max).
 exports.linearInterpolation = function(value, min, max) {
 	return (1 - value) * min + value * max;
 };
 
+var linearInterpolation = exports.linearInterpolation;
+
 // Returns a value in the range [toMin, toMax) resulting from mapping the given value
 // in the range [fromMin, fromMax).
 exports.map = function(value, fromMin, fromMax, toMin, toMax) {
-	var normal = exports.normalize(value, fromMin, fromMax);
-	return exports.linearInterpolation(normal, toMin, toMax);
+	var normal = normalize(value, fromMin, fromMax);
+	return linearInterpolation(normal, toMin, toMax);
 };
 
 // Returns the value of a random angle, in radians.
@@ -58,12 +62,14 @@ exports.randomAngle = function() {
 
 // Returns the value of a random number in the range [min, max).
 exports.randomNumber = function(min, max) {
-	return exports.linearInterpolation(Math.random(), min, max);
+	return linearInterpolation(Math.random(), min, max);
 };
+
+var randomNumber = exports.randomNumber;
 
 // Returns the value of a random integer in the range [min, max].
 exports.randomInteger = function(min, max) {
-	return exports.randomNumber(min, max + 1) | 0;
+	return randomNumber(min, max + 1) | 0;
 };
 
 // Returns the given radian angle represented in degrees.
