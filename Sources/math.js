@@ -116,3 +116,25 @@ exports.arcTan = function(y, x) {
 		return toDeg(Math.atan(y));
 	}
 };
+
+// Returns the smallest of all the values passed.
+exports.min = function() {
+	var min = arguments[0];
+	for (var i = 1; i < arguments.length; i++) {
+		if (arguments[i] < min) {
+			min = arguments[i];
+		}
+	}
+	return min;
+};
+
+// Returns the largest of all the values passed.
+exports.max = function() {
+	var max = arguments[0];
+	for (var i = 1; i < arguments.length; i++) {
+		if (arguments[i] > max) {
+			max = arguments[i];
+		}
+	}
+	return max;
+};

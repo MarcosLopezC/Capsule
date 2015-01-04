@@ -149,3 +149,17 @@ QUnit.test("Checking trigonometric functions are defined.", function(assert) {
 		assert.equal(typeof capsule.math[key], "function", key + " function is defined.");
 	});
 });
+
+QUnit.test("min", function(assert) {
+	var min = capsule.math.min;
+	assert.equal(min(10, 20, 30), 10, "10 is min.");
+	assert.equal(min(-50, 0, 50), -50, "-50 is min.");
+	assert.equal(min(30, 10, 20), 10, "10 is min.");
+});
+
+QUnit.test("max", function(assert) {
+	var max = capsule.math.max;
+	assert.equal(max(10, 20, 30), 30, "30 is max.");
+	assert.equal(max(-50, 0, 50), 50, "50 is max.");
+	assert.equal(max(30, 10, 20), 30, "30 is max.");
+});
