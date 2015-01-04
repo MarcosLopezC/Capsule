@@ -77,7 +77,46 @@ exports.toDegrees = function(radians) {
 	return (radians * 180) / Math.PI;
 };
 
+var toDeg = exports.toDegrees;
+
 // Returns the given degree angle represented in radians.
 exports.toRadians = function(degrees) {
 	return (degrees * Math.PI) / 180;
+};
+
+var toRad = exports.toRadians;
+
+// Returns the sine of an angle in degrees.
+exports.sin = function(x) {
+	return Math.sin(toRad(x));
+};
+
+// Returns the cosine of an angle in degrees.
+exports.cos = function(x) {
+	return Math.cos(toRad(x));
+};
+
+// Returns the tangent of an angle in degrees.
+exports.tan = function(x) {
+	return Math.tan(toRad(x));
+};
+
+// Returns the arcSin of a value, in degrees.
+exports.arcSin = function(x) {
+	return toDeg(Math.aSin(x));
+};
+
+// Returns the arcCos of a value, in degrees.
+exports.arcCos = function(x) {
+	return toDeg(Math.aCos(x));
+};
+
+// Returns the arcTan of a value, in degrees.
+exports.arcTan = function(y, x) {
+	if (typeof x === "number") {
+		return toDeg(Math.atan2(y, x));
+	}
+	else {
+		return toDeg(Math.atan(y));
+	}
 };

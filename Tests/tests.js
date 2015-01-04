@@ -136,3 +136,16 @@ QUnit.test("Checking constant properties", function(assert) {
 		assert.equal(descriptor.writable, false, name + " property is read-only.");
 	});
 });
+
+QUnit.test("Checking trigonometric functions are defined.", function(assert) {
+	[
+		"sin",
+		"cos",
+		"tan",
+		"arcSin",
+		"arcCos",
+		"arcTan"
+	].forEach(function(key) {
+		assert.equal(typeof capsule.math[key], "function", key + " function is defined.");
+	});
+});
