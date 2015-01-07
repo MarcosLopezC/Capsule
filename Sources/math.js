@@ -89,12 +89,12 @@ exports.tan = function(x) {
 
 // Returns the arcSin of a value, in degrees.
 exports.arcSin = function(x) {
-	return exports.toDegrees(Math.aSin(x));
+	return exports.toDegrees(Math.asin(x));
 };
 
 // Returns the arcCos of a value, in degrees.
 exports.arcCos = function(x) {
-	return exports.toDegrees(Math.aCos(x));
+	return exports.toDegrees(Math.acos(x));
 };
 
 // Returns the arcTan of a value, in degrees.
