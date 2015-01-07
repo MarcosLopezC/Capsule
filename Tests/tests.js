@@ -137,18 +137,91 @@ QUnit.test("Checking constant properties", function(assert) {
 	});
 });
 
-QUnit.test("Checking trigonometric functions are defined.", function(assert) {
-	[
-		"sin",
-		"cos",
-		"tan",
-		"arcSin",
-		"arcCos",
-		"arcTan"
-	].forEach(function(key) {
-		assert.equal(typeof capsule.math[key], "function", key + " function is defined.");
+// All trigonometric functions are tested together using a helper function.
+(function() {
+	var MAX_ERROR = 1e-4;
+
+	var compare = function(a, b) {
+		return Math.abs(a - b) < MAX_ERROR;
+	};
+
+	var createTest = function(functionName, assert) {
+		var func = capsule.math[functionName];
+		assert.ok(typeof func === "function", functionName + " is defined.");
+		return function(input, expected) {
+			var result = func(input);
+			assert.ok(compare(func(input), expected),
+				"{func}({input}) = {result} (Expected: {expected}; Diff: {diff})."
+				.replace("{func}", functionName)
+				.replace("{input}", input)
+				.replace("{result}", result)
+				.replace("{expected}", expected)
+				.replace("{diff}", Math.abs(result - expected))
+			);
+		};
+	};
+
+	QUnit.test("sin", function(assert) {
+		var test = createTest("sin", assert);
+		test(0, 0);
+		test(30, 0.5);
+		test(45, 0.707106);
+		test(60, 0.866025);
+		test(90, 1);
+		test(180, 0);
+		test(270, -1);
+		test(360, 0);
 	});
-});
+
+	QUnit.test("cos", function(assert) {
+		var test = createTest("cos", assert);
+		test(0, 1);
+		test(30, 0.866025);
+		test(45, 0.707106);
+		test(60, 0.5);
+		test(90, 0);
+		test(180, -1);
+		test(270, 0);
+		test(360, 1);
+	});
+
+	QUnit.test("tan", function(assert) {
+		var test = createTest("tan", assert);
+		test(0, 0);
+		test(30, 0.577350);
+		test(45, 1);
+		test(60, 1.732050);
+		test(180, 0);
+	});
+
+	QUnit.test("arcSin", function(assert) {
+		var test = createTest("arcSin", assert);
+		test(0, 0);
+		test(0.5, 30);
+		test(0.707106, 45);
+		test(0.866025, 60);
+		test(1, 90);
+		test(-1, -90);
+	});
+
+	QUnit.test("arcCos", function(assert) {
+		var test = createTest("arcCos", assert);
+		test(1, 0);
+		test(0.866025, 30);
+		test(0.707106, 45);
+		test(0.5, 60);
+		test(0, 90);
+		test(-1, 180);
+	});
+
+	QUnit.test("arcTan", function(assert) {
+		var test = createTest("arcTan", assert);
+		test(0, 0);
+		test(0.577350, 30);
+		test(1, 45);
+		test(1.732050, 60);
+	});
+}());
 
 QUnit.test("min", function(assert) {
 	var min = capsule.math.min;
