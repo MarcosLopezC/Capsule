@@ -5,5 +5,6 @@
 "use strict";
 
 window.capsule = {
-	math: require("./math.js")
+	math: require("./math.js"),
+	List: require("./list.js")
 };

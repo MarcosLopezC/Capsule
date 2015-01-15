@@ -236,3 +236,55 @@ QUnit.test("max", function(assert) {
 	assert.equal(max(-50, 0, 50), 50, "50 is max.");
 	assert.equal(max(30, 10, 20), 30, "30 is max.");
 });
+
+(function() {
+	QUnit.module("capsule.List");
+
+	var createSampleList = function() {
+		var list = new capsule.List();
+		for (var i = 0; i <= 10; i += 1) {
+			list.add(i);
+		}
+		return list;
+	};
+
+	QUnit.test("Checking if List is defined", function(assert) {
+		assert.equal(typeof capsule.List, "function", "List is defined.");
+	});
+
+	QUnit.test("General functionality test", function(assert) {
+		var list = createSampleList();
+		assert.equal(list.first, 0, "list.first is 0.");
+		list.add(11);
+		assert.equal(list.count, 12, "list.count is 12.");
+		list.add(13);
+		assert.equal(list.count, 13, "list.count is 13.");
+		assert.equal(list.last, 13, "list.last is 13.");
+		list.insert(12, 12);
+		assert.equal(list.count, 14, "list.count is 14.");
+		assert.equal(list.getItemAt(5), 5, "list.getItemAt(5) is 5.");
+		list.remove(13);
+		assert.equal(list.count, 13, "list.count is 13.");
+		list.remove(20);
+		assert.equal(list.count, 13, "list.count is 13.");
+		list.reverse();
+		assert.equal(list.getItemAt(2), 10, "list.getItemAt(2) is 10.");
+		var sum = 0;
+		list.forEach(function(i) {
+			sum += i;
+		});
+		assert.equal(sum, 78, "Sum of all the items in the list is 78.");
+		list.insert(13).insert(15).insert(14);
+		list.sort(function(a, b) {
+			return a - b;
+		});
+		assert.equal(list.first, 0, "list.first is 0.");
+		assert.equal(list.last, 15, "list.last is 15.");
+		var copy = list.clone();
+		list.removeAt(0);
+		assert.equal(list.first, 1, "list.first is 1.");
+		list.clear();
+		assert.equal(list.count, 0, "list.count is 0.");
+		assert.equal(copy.count, 16, "list.count is 16.");
+	});
+}());
