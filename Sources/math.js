@@ -6,9 +6,13 @@
 
 var descriptor = require("./descriptor.js");
 
-descriptor.defineConstant(exports, "TAU", Math.PI * 2);
+var defineConstant = function(key, value) {
+	descriptor.defineConstant(exports, key, value);
+};
 
-descriptor.defineConstant(exports, "HALF_PI", Math.PI / 2);
+defineConstant("TAU", Math.PI * 2);
+
+defineConstant("HALF_PI", Math.PI / 2);
 
 // Returns the remainder of the Euclidean division between the dividend and the divisor.
 exports.modulus = function(dividend, divisor) {
