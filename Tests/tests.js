@@ -288,3 +288,33 @@ QUnit.test("max", function(assert) {
 		assert.equal(copy.count, 16, "list.count is 16.");
 	});
 }());
+
+(function() {
+	QUnit.module("capsule.Queue");
+
+	QUnit.test("Checking if Queue is defined", function(assert) {
+		assert.equal(typeof capsule.Queue, "function", "Queue us defined.");
+	});
+
+	QUnit.test("General functionality test", function(assert) {
+		var queue = new capsule.Queue();
+		assert.equal(queue.count, 0, "queue.count is 0.");
+		assert.equal(queue.peek(), undefined, "queue.peek() is undefined.");
+		assert.equal(queue.pop(), undefined, "queue.pop() is undefined.");
+		queue.push(0).push(1).push(2);
+		assert.equal(queue.count, 3, "queue.count is 3.");
+		assert.equal(queue.peek(), 0, "queue.peek() is 0");
+		assert.equal(queue.pop(), 0, "queue.pop() is 0");
+		assert.equal(queue.count, 2, "queue.count is 2.");
+		assert.equal(queue.getItemAt(1), 2, "queue.getItemAt(1) is 2.");
+		var sum = 0;
+		queue.forEach(function(i) {
+			sum += i;
+		});
+		assert.equal(sum, 3, "the sum of all items in the queue is 3.");
+		var copy = queue.clone();
+		queue.clear();
+		assert.equal(queue.count, 0, "queue.count is 0.");
+		assert.equal(copy.count, 2, "copy.count is 2");
+	});
+}());
