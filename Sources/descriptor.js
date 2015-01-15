@@ -10,3 +10,12 @@ exports.defineConstant = function(object, key, value) {
 		writable: false
 	});
 };
+
+exports.defineAccessor = function(object, key, accessor) {
+	Object.defineProperty(object, key, {
+		get: accessor.get,
+		set: accessor.set || function() {
+			throw new Error("This property does not have setter.");
+		}
+	});
+};
