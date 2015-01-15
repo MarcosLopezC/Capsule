@@ -1,5 +1,5 @@
 /*
-	Defines the List object and it's methods.
+	Defines the List object and its methods.
 */
 
 "use strict";
@@ -65,7 +65,7 @@ List.prototype.reverse = function() {
 	return this;
 };
 
-// Clears all the items in the list.
+// Clears the contents of the list.
 List.prototype.clear = function() {
 	this._items = [];
 	return this;
@@ -91,7 +91,7 @@ List.prototype.remove = function(item) {
 	return this;
 };
 
-// Creates a shallow copy of the list.
+// Returns a shallow copy of the list.
 List.prototype.clone = function() {
 	var list = new List();
 	list._items = this._items.slice(0);
