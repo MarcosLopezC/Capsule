@@ -352,3 +352,13 @@
 		assert.equal(copy.count, 2, "copy.count is 2.");
 	});
 }());
+
+(function() {
+	QUnit.module("capsule.Stopwatch");
+
+	QUnit.test("Checking if Stopwatch is defined", function(assert) {
+		assert.equal(typeof capsule.Stopwatch, "function", "Stopwatch is defined.");
+		var stopwatch = new capsule.Stopwatch();
+		assert.equal(typeof stopwatch, "object", "Stopwatch can construct objects.");
+	});
+}());
