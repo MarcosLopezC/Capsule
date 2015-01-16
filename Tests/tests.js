@@ -322,3 +322,33 @@
 		assert.equal(copy.count, 2, "copy.count is 2");
 	});
 }());
+
+(function() {
+	QUnit.module("capsule.Stack");
+
+	QUnit.test("Checking if Stack is defined", function(assert) {
+		assert.equal(typeof capsule.Stack, "function", "Stack is defined.");
+	});
+
+	QUnit.test("General functionality test", function(assert) {
+		var stack = new capsule.Stack();
+		assert.equal(stack.count, 0, "stack.count is 0.");
+		assert.equal(stack.peek(), undefined, "stack.peek() is undefined.");
+		assert.equal(stack.pop(), undefined, "stack.pop() is undefined.");
+		stack.push(0).push(1).push(2);
+		assert.equal(stack.count, 3, "stack.count is 3.");
+		var sum = 0;
+		stack.forEach(function(i) {
+			sum += i;
+		});
+		assert.equal(sum, 3, "The sum of all the items in the stack is 3.");
+		assert.equal(stack.peek(), 2, "stack.peek() is 2.");
+		assert.equal(stack.pop(), 2, "stack.pop() is 2.");
+		assert.equal(stack.count, 2, "stack.count is 2.");
+		assert.equal(stack.getItemAt(1), 1, "stack,getItemAt(1) is 1.");
+		var copy = stack.clone();
+		stack.clear();
+		assert.equal(stack.count, 0, "stack.count is 0.");
+		assert.equal(copy.count, 2, "copy.count is 2.");
+	});
+}());

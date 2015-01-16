@@ -7,5 +7,6 @@
 window.capsule = {
 	math: require("./math.js"),
 	List: require("./List.js"),
-	Queue: require("./Queue.js")
+	Queue: require("./Queue.js"),
+	Stack: require("./Stack.js")
 };
