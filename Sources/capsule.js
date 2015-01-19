@@ -9,5 +9,6 @@ window.capsule = {
 	List: require("./List.js"),
 	Queue: require("./Queue.js"),
 	Stack: require("./Stack.js"),
-	Stopwatch: require("./Stopwatch.js")
+	Stopwatch: require("./Stopwatch.js"),
+	Vector: require("./Vector.js")
 };
