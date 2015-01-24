@@ -12,5 +12,6 @@ window.capsule = {
 	Stopwatch: require("./Stopwatch.js"),
 	Vector: require("./Vector.js"),
 	Size: require("./Size.js"),
-	Color: require("./Color.js")
+	Color: require("./Color.js"),
+	Style: require("./Style.js")
 };
