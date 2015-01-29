@@ -13,5 +13,6 @@ window.capsule = {
 	Vector: require("./Vector.js"),
 	Size: require("./Size.js"),
 	Color: require("./Color.js"),
-	Style: require("./Style.js")
+	Style: require("./Style.js"),
+	Rectangle: require("./Rectangle.js")
 };
