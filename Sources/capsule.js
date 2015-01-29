@@ -14,5 +14,6 @@ window.capsule = {
 	Size: require("./Size.js"),
 	Color: require("./Color.js"),
 	Style: require("./Style.js"),
-	Rectangle: require("./Rectangle.js")
+	Rectangle: require("./Rectangle.js"),
+	Circle: require("./Circle.js")
 };
