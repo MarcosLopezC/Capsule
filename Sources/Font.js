@@ -31,6 +31,7 @@ defineAccessor("bold", {
 	},
 	set: function(value) {
 		this._bold = !!value;
+		this._cssString = null;
 	}
 });
 
@@ -41,6 +42,7 @@ defineAccessor("italic", {
 	},
 	set: function(value) {
 		this._italic = !!value;
+		this._cssString = null;
 	}
 });
 
@@ -51,6 +53,7 @@ defineAccessor("size", {
 	},
 	set: function(value) {
 		this._size = max(1, value);
+		this._cssString = null;
 	}
 });
 
@@ -61,6 +64,7 @@ defineAccessor("family", {
 	},
 	set: function(value) {
 		this._family = (typeof value === "string") ? value : DEFAULT_FONT;
+		this._cssString = null;
 	}
 });
 
