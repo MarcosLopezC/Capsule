@@ -17,5 +17,6 @@ window.capsule = {
 	Rectangle: require("./Rectangle.js"),
 	Circle: require("./Circle.js"),
 	Font: require("./Font.js"),
-	Text: require("./Text.js")
+	Text: require("./Text.js"),
+	Sprite: require("./Sprite.js")
 };
