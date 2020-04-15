@@ -18,5 +18,6 @@ window.capsule = {
 	Circle: require("./Circle.js"),
 	Font: require("./Font.js"),
 	Text: require("./Text.js"),
-	Sprite: require("./Sprite.js")
+	Sprite: require("./Sprite.js"),
+	Sound: require("./Sound.js")
 };
